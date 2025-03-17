@@ -1,0 +1,24 @@
+type: custom:vacuum-card
+entity: vacuum.helene_wischer
+stats:
+  default:
+    - entity_id: sensor.helene_wischer_filter_time_left
+      value_template: "{{ (value | float(1) ) | round(0) }}"
+      subtitle: Filter
+      unit: h
+    - entity_id: sensor.helene_wischer_main_brush_time_left
+      value_template: "{{ (value | float(1) ) | round(0) }}"
+      subtitle: Main
+      unit: h
+    - entity_id: sensor.helene_wischer_side_brush_time_left
+      value_template: "{{ (value | float(1) ) | round(0) }}"
+      subtitle: Side
+      unit: h
+    - entity_id: sensor.helene_wischer_sensor_time_left
+      value_template: "{{ (value | float(1) ) | round(1) }}"
+      subtitle: Sensor
+      unit: h
+shortcuts:
+  - name: Clean Livingroom
+    icon: mdi:sofa
+    service: script.clean_livingroom
