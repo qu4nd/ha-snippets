@@ -1,0 +1,1787 @@
+title: HOME
+swipe_nav:
+  enable_mouse_swipe: true
+  animate: swipe
+views:
+  - type: sections
+    title: HOME
+    path: home
+    icon: mdi:home
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: HOME
+            heading_style: title
+            icon: ''
+            badges: []
+          - show_current: true
+            show_forecast: true
+            type: weather-forecast
+            entity: weather.forecast_home
+            forecast_type: daily
+            name: Home
+            layout_options:
+              grid_columns: full
+          - show_state: true
+            show_name: false
+            camera_view: auto
+            type: picture-entity
+            entity: person.qu4nd
+            image: /api/image/serve/f7b9f4c0701325a90006f4de2a70cf66/512x512
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            grid_options:
+              columns: 6
+              rows: auto
+          - show_state: true
+            show_name: false
+            camera_view: auto
+            type: picture-entity
+            entity: person.ina
+            aspect_ratio: '1'
+            image: /api/image/serve/8f1c2c9f18c4442f3a91b301fd356863/512x512
+            tap_action:
+              action: none
+            hold_action:
+              action: none
+            grid_options:
+              columns: 6
+              rows: auto
+          - event_grouping: true
+            drop_todayevents_from: '09:00:00'
+            next_days: 3
+            pattern:
+              - icon: mdi:flower
+                pattern: Bio
+                color: green
+                type: organic
+              - icon: mdi:newspaper
+                pattern: Papier
+                color: blue
+                type: paper
+              - icon: mdi:recycle-variant
+                pattern: Gelbe Saecke
+                color: yellow
+                type: recycle
+              - icon: mdi:trash-can-outline
+                pattern: Rest
+                color: grey
+                type: waste
+              - icon: mdi:dump-truck
+                type: others
+              - label: Weihnachtsbaum-Sammlung
+                icon: mdi:pine-tree
+                color: light-green
+                type: custom
+                pattern: Weihnachtsbaum-Sammlung
+            day_style: counter
+            alignment_style: center
+            color_mode: icon
+            items_per_row: 1
+            refresh_rate: 60
+            with_label: true
+            type: custom:trash-card
+            filter_events: true
+            fill_container: false
+            use_summary: false
+            full_size: false
+            entities:
+              - calendar.regioentsorgung_stadteregion_aachen
+            hide_time_range: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.abfallupcoming
+                below: 3
+            icon_size: 50
+            only_all_day_events: false
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: SHORTCUTS
+          - features:
+              - type: toggle
+            type: tile
+            entity: input_boolean.alarm_active
+            features_position: inline
+            vertical: false
+            name: ALARM
+            hide_state: true
+            show_entity_picture: false
+            tap_action:
+              action: toggle
+          - square: false
+            type: grid
+            cards:
+              - show_name: false
+                show_icon: true
+                type: button
+                tap_action:
+                  action: call-service
+                  service: automation.trigger
+                  target:
+                    entity_id: automation.set_alexa_volume_0_3
+                  data:
+                    skip_condition: true
+                icon: mdi:volume-medium
+                show_state: false
+              - show_name: false
+                show_icon: true
+                type: button
+                tap_action:
+                  action: perform-action
+                  target:
+                    entity_id: automation.all_lights_off
+                  data:
+                    skip_condition: true
+                  perform_action: automation.trigger
+                hold_action:
+                  action: none
+                icon: mdi:lightbulb-group-off
+                show_state: false
+              - type: custom:button-card
+                entity: binary_sensor.cloudflared_running
+                show_name: false
+                grid_options:
+                  columns: 3
+                styles:
+                  icon:
+                    - color: |
+                        [[[
+                          if (entity.state == 'on') return 'green';
+                          else return 'red';
+                        ]]]
+              - show_name: false
+                show_icon: true
+                type: button
+                icon: mdi:sunglasses
+                show_state: false
+                hold_action:
+                  action: perform-action
+                  perform_action: automation.trigger
+                  target:
+                    entity_id: automation.rollos_sonnenschutz
+                  data:
+                    skip_condition: true
+                tap_action:
+                  action: perform-action
+                  perform_action: notify.mobile_app_pixel_8_pro
+                  target: {}
+                  data:
+                    message: Use "Hold Action" to start automation!
+                    title: Info
+            columns: 4
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: LIGHTS
+            heading_style: title
+            badges: []
+          - type: heading
+            icon: phu:rooms-outdoor
+            heading_style: subtitle
+            heading: 'Outdoor '
+          - type: tile
+            entity: switch.hausnummer
+            name: Hausnummer
+            icon: mdi:home-lightbulb
+            vertical: false
+            tap_action:
+              action: toggle
+            icon_tap_action:
+              action: toggle
+            features_position: bottom
+          - type: tile
+            icon: mdi:flower
+            entity: switch.beet_hinten
+            name: Beet hinten
+            tap_action:
+              action: toggle
+            icon_tap_action:
+              action: toggle
+            features_position: bottom
+            vertical: false
+          - features:
+              - type: light-brightness
+            type: tile
+            hide_state: false
+            icon: phu:wall-econic
+            entity: light.hue_beleuchtung_terrasse
+            tap_action:
+              action: toggle
+            icon_tap_action:
+              action: toggle
+            name: Terrasse
+            features_position: inline
+            vertical: false
+          - type: heading
+            icon: mdi:home
+            heading_style: subtitle
+            heading: Indoor
+          - type: tile
+            icon: mdi:lamp
+            name: Korblampe
+            tap_action:
+              action: toggle
+            entity: switch.korblampe
+            features_position: bottom
+            vertical: false
+          - type: tile
+            icon: mdi:bed
+            name: Bett Emilia
+            tap_action:
+              action: toggle
+            entity: switch.bett_emilia
+            features_position: bottom
+            vertical: false
+          - type: tile
+            icon: phu:ceiling-round
+            entity: switch.vitrine
+            hide_state: false
+            tap_action:
+              action: toggle
+            features_position: bottom
+            vertical: false
+          - features:
+              - type: light-brightness
+            type: tile
+            icon: phu:smart-desk-lamp
+            vertical: false
+            tap_action:
+              action: toggle
+            name: 'Schreibtischlampe '
+            entity: light.mijia_desk_lamp_1s
+            features_position: inline
+          - features:
+              - type: light-brightness
+            type: tile
+            hide_state: false
+            icon: mdi:globe-light-outline
+            entity: light.schlafzimmer
+            tap_action:
+              action: toggle
+            features_position: inline
+            vertical: false
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: POWER
+          - type: heading
+            icon: phu:rooms-outdoor
+            heading_style: subtitle
+            heading: 'Outdoor '
+          - type: tile
+            icon: mdi:robot-mower
+            vertical: false
+            entity: switch.steckdose_1
+            tap_action:
+              action: more-info
+            icon_tap_action:
+              action: more-info
+            name: Landroid
+            color: accent
+          - type: tile
+            icon: mdi:power-socket-de
+            entity: switch.steckdose_2
+            tap_action:
+              action: toggle
+            name: Terrasse 2
+            color: primary
+            features_position: bottom
+            vertical: false
+          - type: tile
+            icon: mdi:power-socket-de
+            entity: switch.steckdose_3
+            tap_action:
+              action: toggle
+            name: Terrasse 3
+            color: primary
+            features_position: bottom
+            vertical: false
+          - type: heading
+            icon: mdi:home
+            heading_style: subtitle
+            heading: Indoor
+          - type: tile
+            icon: mdi:desk
+            vertical: false
+            hide_state: false
+            show_entity_picture: false
+            entity: switch.schreibtisch
+            icon_tap_action:
+              action: more-info
+            color: primary
+          - type: tile
+            icon: mdi:power-socket-de
+            entity: switch.generic_2
+            tap_action:
+              action: toggle
+            visibility:
+              - condition: state
+                entity: switch.generic_2
+                state_not: unavailable
+            color: primary
+            features_position: bottom
+            vertical: false
+          - type: tile
+            icon: mdi:power-socket-de
+            entity: switch.generic_1
+            tap_action:
+              action: toggle
+            visibility:
+              - condition: state
+                entity: switch.generic_1
+                state_not: unavailable
+            color: primary
+            features_position: bottom
+            vertical: false
+          - type: tile
+            tap_action:
+              action: toggle
+            icon: mdi:power-socket-de
+            visibility:
+              - condition: state
+                entity: switch.generic_3
+                state_not: unavailable
+            entity: switch.generic_3
+            color: primary
+            features_position: bottom
+            vertical: false
+          - type: heading
+            icon: mdi:power-socket-eu
+            heading_style: subtitle
+            heading: Generic 1 offline
+            visibility:
+              - condition: state
+                entity: switch.generic_1
+                state: unavailable
+          - type: heading
+            icon: mdi:power-socket-eu
+            heading_style: subtitle
+            heading: Generic 2 offline
+            visibility:
+              - condition: state
+                entity: switch.generic_2
+                state: unavailable
+          - type: heading
+            icon: mdi:power-socket-eu
+            heading_style: subtitle
+            heading: Generic 3 offline
+            visibility:
+              - condition: state
+                entity: switch.generic_3
+                state: unavailable
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: 'INDOOR CLIMATE '
+          - type: heading
+            icon: ''
+            heading: Schlafzimmer
+            heading_style: subtitle
+            badges:
+              - type: entity
+                entity: sensor.tempi_schlafzimmer_battery
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.schlafzimmer_climate
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.schlafzimmer_climate
+                    state: good
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_temperature
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.schlafzimmer_climate
+                    state: medium
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.schlafzimmer_climate
+                    state: bad
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_temperature
+                primary_info: state
+                secondary_info: none
+                icon_color: primary
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_humidity
+                primary_info: state
+                secondary_info: none
+                icon_color: primary
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+          - type: heading
+            icon: ''
+            heading: Kinderzimmer
+            heading_style: subtitle
+            badges:
+              - type: entity
+                entity: sensor.tempi_kind_battery
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.kind_climate
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.kind_climate
+                    state: good
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_kind_temperature
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.kind_climate
+                    state: medium
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_kind_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.kind_climate
+                    state: bad
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_kind_temperature
+                primary_info: state
+                secondary_info: none
+                icon_color: primary
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_kind_humidity
+                primary_info: state
+                icon_color: primary
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+          - type: heading
+            icon: ''
+            heading: Waschraum
+            heading_style: subtitle
+            badges:
+              - type: entity
+                entity: sensor.tempi_waschraum_battery
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.waschraum_climate
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.waschraum_climate
+                    state: good
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_waschraum_temperature
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.waschraum_climate
+                    state: medium
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_waschraum_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.waschraum_climate
+                    state: bad
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_waschraum_temperature
+                primary_info: state
+                icon_color: primary
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_waschraum_humidity
+                primary_info: state
+                icon_color: primary
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+          - type: heading
+            icon: ''
+            heading: Dachstudio
+            heading_style: subtitle
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: numeric_state
+                    entity: sensor.echo_dot_xy_temperature
+                    above: 17.9
+                    below: 21
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: or
+                    conditions:
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        above: 16.9
+                        below: 18
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        above: 20.9
+                        below: 23
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: or
+                    conditions:
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        below: 17
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        above: 22.9
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: state
+                secondary_info: none
+                icon_color: primary
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: button
+                show_name: true
+                show_icon: false
+                name: null
+                tap_action: none
+                color: primary
+                hold_action: none
+                action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: 'ENERGY CONSUMPTION '
+          - type: custom:mini-graph-card
+            name: Schreibtisch aktuell
+            entities:
+              - sensor.schreibtisch_current_consumption
+            grid_options:
+              columns: 6
+            hours_to_show: 24
+            icon: mdi:flash
+            color_thresholds:
+              - value: 0
+                color: '#08ff41'
+              - value: 50
+                color: '#e6bb20'
+              - value: 75
+                color: '#e66f20'
+              - value: 100
+                color: '#d30000'
+          - type: custom:mini-graph-card
+            name: Schreibtisch Monat
+            entities:
+              - sensor.schreibtisch_this_month_s_consumption
+            grid_options:
+              columns: 6
+            hours_to_show: 168
+            icon: mdi:flash
+            color_thresholds:
+              - value: 0
+                color: '#08ff41'
+              - value: 8
+                color: '#e66f20'
+              - value: 12
+                color: '#d30000'
+          - name: Bett Emilia aktuell
+            type: custom:mini-graph-card
+            entities:
+              - sensor.bett_emilia_current_consumption
+            grid_options:
+              columns: 6
+            hours_to_show: 24
+            icon: mdi:flash
+            color_thresholds:
+              - value: 0
+                color: '#08ff41'
+              - value: 10
+                color: '#e66f20'
+              - value: 100
+                color: '#d30000'
+          - name: Korblampe aktuell
+            type: custom:mini-graph-card
+            entities:
+              - sensor.korblampe_current_consumption
+            grid_options:
+              columns: 6
+            hours_to_show: 24
+            icon: mdi:flash
+            color_thresholds:
+              - value: 0
+                color: '#08ff41'
+              - value: 10
+                color: '#e66f20'
+              - value: 100
+                color: '#d30000'
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: CAMERAS
+          - type: heading
+            icon: mdi:cctv
+            heading_style: subtitle
+            heading: Zufahrt Garage offline
+            visibility:
+              - condition: state
+                entity: camera.e1_outdoor_clear
+                state: unavailable
+          - show_state: true
+            show_name: true
+            camera_view: live
+            type: picture-entity
+            image: https://demo.home-assistant.io/stub_config/bedroom.png
+            entity: camera.e1_outdoor_clear
+            name: Zufahrt Garage
+            visibility:
+              - condition: state
+                entity: camera.e1_outdoor_clear
+                state_not: unavailable
+            camera_image: camera.e1_outdoor_fluent
+          - type: tile
+            entity: camera.nest_cam_kuche
+            show_entity_picture: false
+            hide_state: false
+            state_content:
+              - brand
+              - model_name
+            color: primary
+            features_position: bottom
+            vertical: true
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Küche
+          - type: tile
+            entity: camera.haustur
+            show_entity_picture: false
+            color: primary
+            state_content:
+              - brand
+              - model_name
+            features_position: bottom
+            vertical: true
+            grid_options:
+              columns: 6
+              rows: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading: WINDOWS
+          - type: tile
+            icon: mdi:door-sliding
+            vertical: false
+            hide_state: false
+            show_entity_picture: false
+            color: primary
+            tap_action:
+              action: more-info
+            entity: binary_sensor.tur_terrasse_window
+            state_content:
+              - state
+              - last-changed
+            name: 'Terrasse '
+          - type: tile
+            entity: sensor.tur_terrasse_battery
+            show_entity_picture: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tur_terrasse_battery
+                below: 15
+            name: Terrasse
+            state_content:
+              - state
+              - last_updated
+          - type: tile
+            icon: ''
+            color: primary
+            entity: binary_sensor.fenster_kuche_window
+            show_entity_picture: false
+            name: Küche
+            hide_state: false
+            state_content:
+              - state
+              - last_changed
+          - type: tile
+            entity: sensor.fenster_kuche_battery
+            show_entity_picture: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_kuche_battery
+                below: 15
+            hide_state: false
+            vertical: false
+            name: Küche
+            state_content:
+              - state
+              - last_updated
+          - type: tile
+            icon: ''
+            color: primary
+            show_entity_picture: false
+            state_content:
+              - state
+              - last-changed
+            entity: binary_sensor.fenster_ankleide_window
+            name: 'Ankleide '
+          - type: tile
+            entity: sensor.fenster_ankleide_battery
+            show_entity_picture: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_ankleide_battery
+                below: 15
+            name: Ankleide
+            state_content:
+              - state
+              - last_updated
+          - type: tile
+            icon: ''
+            color: primary
+            show_entity_picture: false
+            state_content:
+              - state
+              - last-changed
+            entity: binary_sensor.fenster_schlafzimmer_window
+            name: Schlafzimmer
+          - type: tile
+            entity: sensor.fenster_schlafzimmer_battery
+            show_entity_picture: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_schlafzimmer_battery
+                below: 15
+            name: Schlafzimmer
+            state_content:
+              - state
+              - last_updated
+          - type: tile
+            icon: ''
+            color: primary
+            show_entity_picture: false
+            state_content:
+              - state
+              - last-changed
+            entity: binary_sensor.fenster_kinderzimmer_window
+            name: Kinderzimmer
+          - type: tile
+            entity: sensor.fenster_kinderzimmer_battery
+            show_entity_picture: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_kinderzimmer_battery
+                below: 15
+            name: Kinderzimmer
+            state_content:
+              - state
+              - last_updated
+      - type: grid
+        cards:
+          - type: heading
+            heading: WORX LANDROID M
+            heading_style: title
+            badges: []
+            grid_options:
+              columns: full
+              rows: 1
+          - type: heading
+            icon: mdi:robot-mower
+            heading_style: subtitle
+            heading: Landroid M offline
+            visibility:
+              - condition: state
+                entity: lawn_mower.m
+                state: unavailable
+            grid_options:
+              columns: 12
+              rows: auto
+          - image: default
+            image_size: '4'
+            show_animation: true
+            show_status: true
+            show_toolbar: true
+            type: custom:landroid-card
+            entity: lawn_mower.m
+            show_name: false
+            image_left: false
+            compact_view: false
+            visibility:
+              - condition: state
+                entity: lawn_mower.m
+                state_not: unavailable
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: HELENE WISCHER
+            heading_style: title
+          - type: custom:vacuum-card
+            entity: vacuum.helene_wischer
+            stats:
+              default:
+                - entity_id: sensor.helene_wischer_filter_time_left
+                  value_template: '{{ (value | float(1) ) | round(0) }}'
+                  subtitle: Filter
+                  unit: h
+                - entity_id: sensor.helene_wischer_main_brush_time_left
+                  value_template: '{{ (value | float(1) ) | round(0) }}'
+                  subtitle: Main
+                  unit: h
+                - entity_id: sensor.helene_wischer_side_brush_time_left
+                  value_template: '{{ (value | float(1) ) | round(0) }}'
+                  subtitle: Side
+                  unit: h
+                - entity_id: sensor.helene_wischer_sensor_time_left
+                  value_template: '{{ (value | float(1) ) | round(1) }}'
+                  subtitle: Sensor
+                  unit: h
+            shortcuts:
+              - name: Clean Livingroom
+                icon: mdi:sofa
+                service: script.clean_livingroom
+    cards: []
+    max_columns: 5
+    badges: []
+    dense_section_placement: true
+    visible:
+      - user: 64d0a975dc4a4bbe9e3cffc587ca23bf
+      - user: 406f304bbf3542409d911ee3e46ed605
+    header:
+      layout: center
+      badges_position: bottom
+  - title: ROLLOS
+    path: rollos
+    icon: mdi:window-shutter
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            icon: ''
+            heading: MARKISE
+            heading_style: subtitle
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.markise
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 12
+              rows: 2
+          - type: horizontal-stack
+            cards:
+              - type: vertical-stack
+                cards: []
+            layout_options:
+              grid_columns: full
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            icon: ''
+            heading: ERDGESCHOSS
+            heading_style: subtitle
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollos_eg
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 12
+              rows: 2
+            name: EG
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_kuche
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Küche
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_wohnzimmer_links
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Wohnzimmer links
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_wohnzimmer_rechts
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Wohnzimmer rechts
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            icon: ''
+            heading: OBERGESCHOSS
+            heading_style: subtitle
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollos_og
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 12
+              rows: 2
+            name: OG
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_badezimmer
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Bad
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_buro
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Büro
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_ankleide
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Ankleide
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_schlafzimmer
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Schlafzimmer
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_kinderzimmer
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Kinderzimmer
+      - type: grid
+        cards:
+          - type: heading
+            icon: ''
+            heading: DACHGESCHOSS
+            heading_style: subtitle
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollos_dg
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 12
+              rows: 2
+            name: DG
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_studio
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Studio
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.rollo_dachfenster
+            vertical: false
+            state_content:
+              - state
+              - current_position
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Dachfenster
+    max_columns: 5
+    dense_section_placement: true
+    cards: []
+    header: {}
+  - title: STATUS
+    path: status
+    icon: mdi:alert-circle-check
+    type: sections
+    max_columns: 5
+    dense_section_placement: true
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: TEMPERATURE SENSORS
+            heading_style: title
+            icon: phu:shelly-logo
+          - type: gauge
+            name: Küche
+            entity: sensor.rollo_kuche_device_temperature
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            needle: false
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            entity: sensor.rollo_wohnzimmer_links_device_temperature
+            name: WZ links
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            entity: sensor.rollo_wohnzimmer_rechts_device_temperature
+            name: WZ rechts
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            name: Bad
+            max: 80
+            needle: false
+            entity: sensor.rollo_badezimmer_device_temperature
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            entity: sensor.rollo_buro_device_temperature
+            name: Büro
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            entity: sensor.rollo_ankleide_device_temperature
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            name: Ankleide
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            entity: sensor.rollo_schlafzimmer_device_temperature
+            name: SZ
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            entity: sensor.rollo_kinderzimmer_device_temperature
+            name: Kind
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+          - type: gauge
+            severity:
+              green: 0
+              yellow: 50
+              red: 65
+            entity: sensor.rollo_studio_device_temperature
+            name: Studio
+            max: 80
+            grid_options:
+              columns: 4
+              rows: 2
+            min: 30
+        column_span: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading: WEAK WIFI SIGNALS
+            heading_style: title
+            icon: mdi:wifi-alert
+          - type: tile
+            entity: sensor.hausnummer_rssi
+            name: Hausnummer
+            visibility:
+              - condition: numeric_state
+                entity: sensor.hausnummer_rssi
+                below: -67
+            features_position: bottom
+            vertical: false
+          - type: tile
+            entity: sensor.vitrine_rssi
+            name: Vitrine
+            visibility:
+              - condition: numeric_state
+                entity: sensor.vitrine_rssi
+                below: -67
+          - type: tile
+            entity: sensor.beet_hinten_rssi
+            name: Beet
+            visibility:
+              - condition: numeric_state
+                entity: sensor.beet_hinten_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_kuche_rssi
+            name: Küche
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_kuche_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_wohnzimmer_links_rssi
+            name: WZ links
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_wohnzimmer_links_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_wohnzimmer_rechts_rssi
+            name: WZ rechts
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_wohnzimmer_rechts_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_badezimmer_rssi
+            name: Bad
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_badezimmer_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_buro_rssi
+            name: Büro
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_buro_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_ankleide_rssi
+            name: Ankleide
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_ankleide_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_schlafzimmer_rssi
+            name: SZ
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_schlafzimmer_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_kinderzimmer_rssi
+            name: KZ
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_kinderzimmer_rssi
+                below: -67
+          - type: tile
+            entity: sensor.rollo_studio_rssi
+            name: Studio
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rollo_dachgeschoss_rssi
+                below: -67
+          - type: tile
+            entity: sensor.schreibtisch_signal_strength
+            name: Schreibtisch
+            visibility:
+              - condition: numeric_state
+                entity: sensor.schreibtisch_signal_strength
+                below: -67
+          - type: tile
+            entity: sensor.korblampe_signal_strength
+            name: Korblampe
+            visibility:
+              - condition: numeric_state
+                entity: sensor.korblampe_signal_strength
+                below: -67
+          - type: tile
+            entity: sensor.bett_emilia_signal_strength
+            name: Bett
+            visibility:
+              - condition: numeric_state
+                entity: sensor.bett_emilia_signal_strength
+                below: -67
+          - type: tile
+            entity: sensor.schlafzimmer_links_signal_strength
+            name: SZ links
+            visibility:
+              - condition: numeric_state
+                entity: sensor.schlafzimmer_links_signal_strength
+                below: -67
+          - type: tile
+            entity: sensor.schlafzimmer_rechts_signal_strength
+            name: SZ rechts
+            visibility:
+              - condition: numeric_state
+                entity: sensor.schlafzimmer_rechts_signal_strength
+                below: -67
+          - type: tile
+            name: Gen 1
+            visibility:
+              - condition: state
+                entity: sensor.generic_1_signal_strength
+                state_not: unavailable
+              - condition: numeric_state
+                entity: sensor.generic_1_signal_strength
+                below: -67
+            entity: sensor.generic_1_signal_strength
+          - type: tile
+            entity: sensor.generic_2_signal_strength
+            name: Gen 2
+            visibility:
+              - condition: state
+                entity: sensor.generic_2_signal_strength
+                state_not: unavailable
+              - condition: numeric_state
+                entity: sensor.generic_2_signal_strength
+                below: -67
+          - type: tile
+            name: Gen 3
+            visibility:
+              - condition: state
+                entity: sensor.generic_3_signal_strength
+                state_not: unavailable
+              - condition: numeric_state
+                entity: sensor.generic_3_signal_strength
+                below: -67
+            entity: sensor.generic_3_signal_strength
+          - type: tile
+            entity: sensor.m_rssi
+            name: M
+            visibility:
+              - condition: state
+                entity: sensor.m_rssi
+                state_not: unavailable
+              - condition: numeric_state
+                entity: sensor.m_rssi
+                below: -67
+          - type: tile
+            entity: sensor.e1_outdoor_wi_fi_signal
+            name: E1
+            visibility:
+              - condition: state
+                entity: sensor.e1_outdoor_wi_fi_signal
+                state_not: unavailable
+              - condition: numeric_state
+                entity: sensor.e1_outdoor_wi_fi_signal
+                below: 2
+        column_span: 2
+      - type: grid
+        cards:
+          - type: heading
+            icon: phu:ubiquiti
+            heading_style: title
+            heading: UNIFI
+          - type: heading
+            heading: Connected Clients
+            heading_style: subtitle
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.loading
+                icon: mdi:numeric-2-box
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.i_got_5_on_it
+                icon: mdi:numeric-5-box
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.switch_lite_16_poe_clients
+                icon: mdi:lan-connect
+          - type: heading
+            icon: mdi:router-wireless
+            heading: NanoHD EG
+            heading_style: subtitle
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.nanohd_eg_clients
+                tap_action:
+                  action: more-info
+              - type: entity
+                show_state: true
+                show_icon: false
+                entity: sensor.nanohd_eg_state
+                state_content: state
+          - type: tile
+            entity: sensor.nanohd_eg_cpu_utilization
+            name: CPU
+          - type: tile
+            entity: sensor.nanohd_eg_memory_utilization
+            name: RAM
+          - type: tile
+            entity: update.nanohd_eg
+            name: Firmware
+            state_content:
+              - installed_version
+              - state
+            grid_options:
+              columns: 12
+              rows: 1
+          - type: heading
+            icon: mdi:router-wireless
+            heading: NanoHD OG
+            heading_style: subtitle
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.nanohd_og_clients
+                tap_action:
+                  action: more-info
+              - type: entity
+                show_state: true
+                show_icon: false
+                entity: sensor.nanohd_og_state
+                state_content: state
+          - type: tile
+            entity: sensor.nanohd_og_cpu_utilization
+            name: CPU
+          - type: tile
+            entity: sensor.nanohd_og_memory_utilization
+            name: RAM
+          - type: tile
+            entity: update.nanohd_og
+            name: Firmware
+            state_content:
+              - installed_version
+              - state
+            grid_options:
+              columns: 12
+              rows: 1
+          - type: heading
+            icon: mdi:router-wireless
+            heading: NanoHD DG
+            heading_style: subtitle
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.nanohd_dg_clients
+                tap_action:
+                  action: more-info
+              - type: entity
+                show_state: true
+                show_icon: false
+                entity: sensor.nanohd_dg_state
+                state_content: state
+          - type: tile
+            entity: sensor.nanohd_dg_cpu_utilization
+            name: CPU
+          - type: tile
+            entity: sensor.nanohd_dg_memory_utilization
+            name: RAM
+          - type: tile
+            entity: update.nanohd_dg
+            name: Firmware
+            state_content:
+              - installed_version
+              - state
+            grid_options:
+              columns: 12
+              rows: 1
+          - type: heading
+            icon: mdi:lan
+            heading: Switch Lite 16 POE
+            heading_style: subtitle
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.switch_lite_16_poe_clients
+                tap_action:
+                  action: more-info
+              - type: entity
+                show_state: true
+                show_icon: false
+                state_content: state
+                entity: sensor.switch_lite_16_poe_state
+          - type: tile
+            entity: sensor.switch_lite_16_poe_cpu_utilization
+            name: CPU
+          - type: tile
+            entity: sensor.switch_lite_16_poe_memory_utilization
+            name: RAM
+          - type: tile
+            entity: update.switch_lite_16_poe
+            name: Firmware
+            state_content:
+              - installed_version
+              - state
+            grid_options:
+              columns: 12
+              rows: 1
+          - type: heading
+            icon: mdi:qrcode
+            heading: QR Codes
+            heading_style: subtitle
+          - type: tile
+            entity: image.loading_qr_code
+            show_entity_picture: true
+            name: Loading...
+            features_position: bottom
+            vertical: false
+            hide_state: true
+          - type: tile
+            entity: image.i_got_5_on_it_qr_code
+            show_entity_picture: true
+            name: I got 5 on it
+            features_position: bottom
+            vertical: false
+            hide_state: true
+        column_span: 2
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: SYSTEM
+            icon: mdi:home-assistant
+            badges:
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.tempi_serverschrank_temperature
+                tap_action:
+                  action: more-info
+              - type: entity
+                show_state: true
+                show_icon: true
+                entity: sensor.tempi_serverschrank_humidity
+                tap_action:
+                  action: more-info
+          - type: tile
+            entity: sensor.tempi_serverschrank_battery
+            features_position: bottom
+            vertical: false
+          - type: tile
+            entity: sensor.system_monitor_disk_free
+            name: Free
+          - type: tile
+            entity: sensor.system_monitor_processor_use
+            name: CPU
+          - type: tile
+            entity: sensor.system_monitor_memory_usage
+            name: RAM
+          - type: tile
+            entity: sensor.system_monitor_memory_free
+            name: Free
+          - type: tile
+            entity: sensor.system_monitor_swap_usage
+            name: Swap
+            icon: mdi:swap-horizontal-hidden
+          - type: tile
+            entity: sensor.system_monitor_last_boot
+            name: Last boot
+          - type: tile
+            features_position: bottom
+            vertical: false
+            entity: sensor.node_pve_virtual_machines_running
+            name: VMs running
+          - type: tile
+            features_position: bottom
+            vertical: false
+            entity: sensor.disk_pve_kingston_sms200s330g_dev_sda_life_left
+            name: /dev/sda life left
+          - type: tile
+            features_position: bottom
+            vertical: false
+            entity: sensor.disk_pve_kingston_sms200s330g_dev_sda_temperature
+            name: /dev/sda temp
+          - type: tile
+            features_position: bottom
+            vertical: false
+            entity: sensor.disk_pve_samsung_mz7te256hmhp_000l2_dev_sdb_wearout
+            name: /dev/sdb wearout
+          - type: tile
+            features_position: bottom
+            vertical: false
+            entity: >-
+              sensor.disk_pve_samsung_mz7te256hmhp_000l2_dev_sdb_airflow_temperature
+            name: /dev/sdb/ temp
+          - type: tile
+            features_position: bottom
+            vertical: true
+            entity: button.node_pve_reboot
+            name: PVE Reboot
+            hide_state: true
+            icon: mdi:power-cycle
+          - type: tile
+            features_position: bottom
+            vertical: false
+            entity: binary_sensor.node_pve_updates_packages
+            name: PVE Updates
+        column_span: 2
+    cards: []
+    visible:
+      - user: 64d0a975dc4a4bbe9e3cffc587ca23bf
+  - title: under-construction
+    icon: mdi:account-hard-hat
+    cards: []
+    visible:
+      - user: 64d0a975dc4a4bbe9e3cffc587ca23bf
+    type: sections
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
