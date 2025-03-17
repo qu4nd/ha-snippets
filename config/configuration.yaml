@@ -1,0 +1,101 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# config for cloudflare access
+http:
+  cors_allowed_origins:
+    - https://google.com
+    - https://www.home-assistant.io
+  ip_ban_enabled: true
+  login_attempts_threshold: 10
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.16.0.0/12
+    - 172.30.33.0/24
+    
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /local/community/custom-brand-icons/custom-brand-icons.js
+
+# includes
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+sensor: !include sensors.yaml
+
+# recorder configuration        
+recorder:
+  purge_keep_days: 60
+  exclude:
+    entities:
+      - weather.forecast_home
+      - sensor.i_got_5_on_it
+      - sensor.loading
+      - vacuum.helene_wischer
+      - device_tracker.worx_landroid_m
+      - sensor.pixel_8_pro_geocoded_location
+      - sensor.pixel_4a_geocoded_location
+      - update.rollo_buro_firmware_update
+    entity_globs:
+      - sensor.helene_wischer_*
+      - button.helene_wischer_*
+      - binary_sensor.helene_wischer_*
+      - media_player.*
+      - remote.*
+      - switch.echo_dot_*
+      - select.helene_wischer_*
+      - image.helene_wischer_*
+      - sensor.m_*
+      - binary_sensor.m_*
+      - binary_sensor.rollo_buro_*
+      - sensor.echo_*_next_timer
+      - switch.echo_*_do_not_disturb_switch
+      - binary_sensor.e1_outdoor_*
+
+        
+# Telegram Bot config
+telegram_bot:
+  - platform: polling
+    api_key: !secret telegram_api_key
+    allowed_chat_ids:
+      - !secret telegram_chat_id_daniel
+      - !secret telegram_chat_id_ina
+notify:
+  - platform: telegram
+    name: ha_telegram_bot_daniel
+    chat_id: !secret telegram_chat_id_daniel
+  - platform: telegram
+    name: ha_telegram_bot_ina
+    chat_id: !secret telegram_chat_id_ina
+  - name: all_telegram
+    platform: group 
+    services:
+      - service: ha_telegram_bot_daniel
+      - service: ha_telegram_bot_ina
+
+#DEPRECATED
+# Abfallkalender config
+#waste_collection_schedule:
+#  sources:
+#    - name: regioentsorgung_de
+#      args:
+#        city: Herzogenrath
+#        street: Römerstraße
+#        house_number: 135
+#      customize:
+#        - type: Bioabfall 2-Rad Behaelter 02-woechentl.
+#          alias: Biotonne
+#        - type: Restabfall 2-Rad Behaelter 02-woechentl.
+#          alias: Restmüll
+#        - type: Papierabfuhr 2-Rad Behaelter 04-woechentl.
+#          alias: Papiertonne  
+#        - type: Gruenschnitt-Strassensammlung
+#          show: false
+
+# self created entities
+#input_boolean:
+#  alarmactive:
+#    name: alarm active
+#    initial: off
