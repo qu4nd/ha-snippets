@@ -1,0 +1,318 @@
+type: grid
+cards:
+  - type: heading
+    heading_style: title
+    heading: "INDOOR CLIMATE "
+  - type: heading
+    icon: ""
+    heading: Schlafzimmer
+    heading_style: subtitle
+    badges:
+      - type: entity
+        entity: sensor.tempi_schlafzimmer_battery
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.schlafzimmer_climate
+        primary_info: none
+        icon_color: green
+        icon: mdi:emoticon-happy
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.schlafzimmer_climate
+            state: good
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_schlafzimmer_temperature
+        primary_info: none
+        icon_color: amber
+        icon: mdi:emoticon-neutral-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.schlafzimmer_climate
+            state: medium
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_schlafzimmer_temperature
+        primary_info: none
+        icon_color: deep-orange
+        icon: mdi:emoticon-sad-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.schlafzimmer_climate
+            state: bad
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_schlafzimmer_temperature
+        primary_info: state
+        secondary_info: none
+        icon_color: primary
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_schlafzimmer_humidity
+        primary_info: state
+        secondary_info: none
+        icon_color: primary
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+  - type: heading
+    icon: ""
+    heading: Kinderzimmer
+    heading_style: subtitle
+    badges:
+      - type: entity
+        entity: sensor.tempi_kind_battery
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.kind_climate
+        primary_info: none
+        icon_color: green
+        icon: mdi:emoticon-happy
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.kind_climate
+            state: good
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_kind_temperature
+        primary_info: none
+        icon_color: amber
+        icon: mdi:emoticon-neutral-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.kind_climate
+            state: medium
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_kind_temperature
+        primary_info: none
+        icon_color: deep-orange
+        icon: mdi:emoticon-sad-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.kind_climate
+            state: bad
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_kind_temperature
+        primary_info: state
+        secondary_info: none
+        icon_color: primary
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_kind_humidity
+        primary_info: state
+        icon_color: primary
+        secondary_info: none
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+  - type: heading
+    icon: ""
+    heading: Waschraum
+    heading_style: subtitle
+    badges:
+      - type: entity
+        entity: sensor.tempi_waschraum_battery
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.waschraum_climate
+        primary_info: none
+        icon_color: green
+        icon: mdi:emoticon-happy
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.waschraum_climate
+            state: good
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_waschraum_temperature
+        primary_info: none
+        icon_color: amber
+        icon: mdi:emoticon-neutral-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.waschraum_climate
+            state: medium
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_waschraum_temperature
+        primary_info: none
+        icon_color: deep-orange
+        icon: mdi:emoticon-sad-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.waschraum_climate
+            state: bad
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_waschraum_temperature
+        primary_info: state
+        icon_color: primary
+        secondary_info: none
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_waschraum_humidity
+        primary_info: state
+        icon_color: primary
+        secondary_info: none
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+  - type: heading
+    icon: ""
+    heading: Dachstudio
+    heading_style: subtitle
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.echo_dot_xy_temperature
+        primary_info: none
+        icon_color: green
+        icon: mdi:emoticon-happy
+        secondary_info: none
+        visibility:
+          - condition: numeric_state
+            entity: sensor.echo_dot_xy_temperature
+            above: 17.9
+            below: 21
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.echo_dot_xy_temperature
+        primary_info: none
+        icon_color: amber
+        icon: mdi:emoticon-neutral-outline
+        secondary_info: none
+        visibility:
+          - condition: or
+            conditions:
+              - condition: numeric_state
+                entity: sensor.echo_dot_xy_temperature
+                above: 16.9
+                below: 18
+              - condition: numeric_state
+                entity: sensor.echo_dot_xy_temperature
+                above: 20.9
+                below: 23
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.echo_dot_xy_temperature
+        primary_info: none
+        icon_color: deep-orange
+        icon: mdi:emoticon-sad-outline
+        secondary_info: none
+        visibility:
+          - condition: or
+            conditions:
+              - condition: numeric_state
+                entity: sensor.echo_dot_xy_temperature
+                below: 17
+              - condition: numeric_state
+                entity: sensor.echo_dot_xy_temperature
+                above: 22.9
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.echo_dot_xy_temperature
+        primary_info: state
+        secondary_info: none
+        icon_color: primary
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: button
+        show_name: true
+        show_icon: false
+        name: null
+        tap_action: none
+        color: primary
+        hold_action: none
+        action: none
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
