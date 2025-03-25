@@ -38,6 +38,7 @@ recorder:
       - sensor.pixel_8_pro_geocoded_location
       - sensor.pixel_4a_geocoded_location
       - update.rollo_buro_firmware_update
+      - sensor.regenradar
     entity_globs:
       - sensor.helene_wischer_*
       - button.helene_wischer_*
@@ -53,6 +54,7 @@ recorder:
       - sensor.echo_*_next_timer
       - switch.echo_*_do_not_disturb_switch
       - binary_sensor.e1_outdoor_*
+      - sensor.rrr*
 
         
 # Telegram Bot config
@@ -74,7 +76,7 @@ notify:
     services:
       - service: ha_telegram_bot_daniel
       - service: ha_telegram_bot_ina
-
+      
 #DEPRECATED
 # Abfallkalender config
 #waste_collection_schedule:
