@@ -16,3 +16,27 @@ clean_livingroom:
   alias: Clean Livingroom
   description: ''
   icon: mdi:sofa
+confirmable_helene_wischer_maintenance:
+  alias: Confirmable Helene Wischer Maintenance
+  use_blueprint:
+    path: homeassistant/confirmable_notification.yaml
+    input:
+      notify_device: bbb8e63c8782bc36c7c2414c46158e73
+      title: "\U0001F527 Helene Wischer Maintenance"
+      message: Some accesories need maintenance! Check Helene's overview!
+      confirm_text: NOTIFY AGAIN
+      confirm_action:
+      - action: input_boolean.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.helene_wischer_known_maitenance
+      dismiss_text: DON'T NOTIFY
+      dismiss_action:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.helene_wischer_known_maitenance
+  description: ''
+  icon: mdi:wrench-check
