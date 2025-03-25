@@ -15,6 +15,23 @@ views:
             heading_style: title
             icon: ''
             badges: []
+          - type: markdown
+            content: >
+              # Deutscher Wetterdienst Warnung
+
+              {{
+              state_attr('sensor.stadteregion_aachen_current_weather_warning_level','warning_1_headline')
+              }}
+
+              {{
+              state_attr('sensor.stadteregion_aachen_current_weather_warning_level','warning_1_description')
+              }}
+            title: Deutscher Wetterdienst
+            visibility:
+              - condition: numeric_state
+                entity: sensor.stadteregion_aachen_current_weather_warning_level
+                above: 0
+            text_only: true
           - show_current: true
             show_forecast: true
             type: weather-forecast
@@ -1726,17 +1743,8 @@ views:
             entity: sensor.system_monitor_memory_free
             name: Free
           - type: tile
-            entity: sensor.system_monitor_swap_usage
-            name: Swap
-            icon: mdi:swap-horizontal-hidden
-          - type: tile
             entity: sensor.system_monitor_last_boot
             name: Last boot
-          - type: tile
-            features_position: bottom
-            vertical: false
-            entity: sensor.node_pve_virtual_machines_running
-            name: VMs running
           - type: tile
             features_position: bottom
             vertical: false
@@ -1760,20 +1768,48 @@ views:
             name: /dev/sdb/ temp
           - type: tile
             features_position: bottom
+            vertical: false
+            entity: binary_sensor.node_pve_updates_packages
+            name: PVE Updates
+          - type: tile
+            features_position: bottom
+            vertical: false
+            entity: sensor.node_pve_total_updates
+            name: PVE Updates
+          - type: tile
+            features_position: bottom
             vertical: true
             entity: button.node_pve_reboot
             name: PVE Reboot
             hide_state: true
             icon: mdi:power-cycle
-          - type: tile
-            features_position: bottom
-            vertical: false
-            entity: binary_sensor.node_pve_updates_packages
-            name: PVE Updates
         column_span: 2
     cards: []
     visible:
       - user: 64d0a975dc4a4bbe9e3cffc587ca23bf
+    badges:
+      - type: entity
+        show_name: true
+        show_state: true
+        show_icon: true
+        entity: binary_sensor.node_pve_updates_packages
+        visibility:
+          - condition: state
+            entity: binary_sensor.node_pve_updates_packages
+            state: 'on'
+        show_entity_picture: false
+        state_content: state
+      - type: entity
+        show_name: true
+        show_state: false
+        show_icon: true
+        entity: sensor.rrraintext
+        name: 'Regensensor unavailable '
+        icon: mdi:weather-rainy
+        visibility:
+          - condition: state
+            entity: sensor.rrraintext
+            state: unknown
   - title: under-construction
     icon: mdi:account-hard-hat
     cards: []
@@ -1785,3 +1821,13 @@ views:
         cards:
           - type: heading
             heading: New section
+          - type: tile
+            entity: sensor.rrraintext
+          - type: tile
+            entity: sensor.rrrainin30min
+          - type: tile
+            entity: sensor.rrrainin60min
+          - type: tile
+            entity: sensor.rrrainin120min
+          - type: tile
+            entity: sensor.regenradar
