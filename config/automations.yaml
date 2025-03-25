@@ -1,0 +1,974 @@
+- id: '1697401396406'
+  alias: Auto - Rollos Sunset
+  description: ''
+  triggers:
+  - at: '18:00:00'
+    trigger: time
+    enabled: false
+  - trigger: sun
+    event: sunset
+    offset: 00:15
+  conditions: []
+  actions:
+  - continue_on_error: true
+    device_id: b31168d36b5d7e5f3455fede37ed583e
+    domain: cover
+    entity_id: 3bf22b6c7296364badaa5c29bfc26fc2
+    type: close
+  - continue_on_error: true
+    device_id: 450cc7712a68420c8d1bd42e34849ed8
+    domain: cover
+    entity_id: 8373d962d09ad9e790b34a9e8612e28b
+    type: close
+    enabled: false
+  - continue_on_error: true
+    device_id: 4c6dfb3fe36616c80b7436905018b47e
+    domain: cover
+    entity_id: 83baa922887c52a91d56cbe3f781ab27
+    type: close
+  - continue_on_error: true
+    device_id: 649d468e978bc49c85ab10cdb24f72c8
+    domain: cover
+    entity_id: f2fb6e6b01528a9f3286dba19a84abb5
+    type: close
+  - continue_on_error: true
+    device_id: 9c0a4942bcdbb224b047db05170d2fc5
+    domain: cover
+    entity_id: 3a627e9d2e0c16f3643979f542e4aefd
+    type: set_position
+    position: 30
+  - continue_on_error: true
+    device_id: 6826e62a278dc4582fb788291ec3f06a
+    domain: cover
+    entity_id: c82fcd2ee3938ee667d91d4edbd95c04
+    type: close
+  - continue_on_error: true
+    device_id: 37a00e059c0e8cb65c0e644f4eb2821d
+    domain: cover
+    entity_id: 5a610b28f4f38cd2014dde3916f3dae5
+    type: close
+  mode: single
+- id: '1697918552685'
+  alias: 'Reconnect Beet hinten '
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.beet_hinten
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      device_id: 4ea29f7266e1aa5e7c9aebb2ba741a48
+    action: unifi.reconnect_client
+  - data:
+      message: Beet hinten war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
+        durchgeführt.
+      title: 'Beet hinten offline '
+    action: notify.notify
+    enabled: false
+  mode: single
+- id: '1698174374159'
+  alias: 'Reconnect Steckdosensäule '
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.steckdose_1
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    to: unavailable
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      device_id: bfc8ba1632a5120db32d538725831357
+    action: unifi.reconnect_client
+  - data:
+      message: Steckdosensäule Terrasse war 5 Minuten nicht verfügbar. Reconnect in
+        UniFi wird durchgeführt.
+      title: 'Steckdosensäule Terrasse offline '
+    action: notify.notify
+    enabled: false
+  mode: single
+- id: '1698923757421'
+  alias: Auto - Lights on Sunset
+  description: ''
+  triggers:
+  - event: sunset
+    offset: -00:15:00
+    trigger: sun
+  conditions: []
+  actions:
+  - continue_on_error: true
+    type: turn_on
+    device_id: 0ec6f80f65b91bb3f22722f004edc49d
+    entity_id: d671d73df0453a31d3c339faba900d5f
+    domain: switch
+  - continue_on_error: true
+    type: turn_on
+    device_id: 4ea29f7266e1aa5e7c9aebb2ba741a48
+    entity_id: 2bff9da54db769cced8f0edba872a08a
+    domain: switch
+    enabled: true
+  - type: turn_on
+    device_id: aff0d7d8195411bf2ed204da02d33867
+    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    domain: switch
+  - type: turn_on
+    device_id: d285c29f4b1190f2155ea009c4cd5f02
+    entity_id: b893193bdb0769c1ce162eac0b438355
+    domain: switch
+  - continue_on_error: true
+    action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.weihnachtsbeleuchtung
+    enabled: false
+  mode: single
+- id: '1698924083587'
+  alias: Auto - Lights off at 23:00
+  description: ''
+  triggers:
+  - at: '23:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: d285c29f4b1190f2155ea009c4cd5f02
+    entity_id: b893193bdb0769c1ce162eac0b438355
+    domain: switch
+  - continue_on_error: true
+    type: turn_off
+    device_id: 4ea29f7266e1aa5e7c9aebb2ba741a48
+    entity_id: 2bff9da54db769cced8f0edba872a08a
+    domain: switch
+  - type: turn_off
+    device_id: aff0d7d8195411bf2ed204da02d33867
+    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    domain: switch
+  - continue_on_error: true
+    action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.weihnachtsbeleuchtung
+    enabled: false
+  mode: single
+- id: '1698924232659'
+  alias: 'Auto - Lights off at 0:00 l sunrise '
+  description: ''
+  triggers:
+  - at: 00:00:00
+    trigger: time
+  - event: sunrise
+    offset: 00:30:00
+    trigger: sun
+  conditions: []
+  actions:
+  - continue_on_error: true
+    type: turn_off
+    device_id: 0ec6f80f65b91bb3f22722f004edc49d
+    entity_id: d671d73df0453a31d3c339faba900d5f
+    domain: switch
+  - continue_on_error: true
+    type: turn_off
+    device_id: 4ea29f7266e1aa5e7c9aebb2ba741a48
+    entity_id: 2bff9da54db769cced8f0edba872a08a
+    domain: switch
+  - type: turn_off
+    device_id: d285c29f4b1190f2155ea009c4cd5f02
+    entity_id: b893193bdb0769c1ce162eac0b438355
+    domain: switch
+  - type: turn_off
+    device_id: aff0d7d8195411bf2ed204da02d33867
+    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    domain: switch
+  - continue_on_error: true
+    action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.weihnachtsbeleuchtung
+    enabled: false
+  mode: single
+- id: '1698924307736'
+  alias: Auto - Morning lights at 6:00
+  description: ''
+  triggers:
+  - at: 06:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - continue_on_error: true
+    type: turn_on
+    device_id: 0ec6f80f65b91bb3f22722f004edc49d
+    entity_id: d671d73df0453a31d3c339faba900d5f
+    domain: switch
+  - type: turn_on
+    device_id: aff0d7d8195411bf2ed204da02d33867
+    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    domain: switch
+  - continue_on_error: true
+    action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.weihnachtsbeleuchtung
+    enabled: false
+  mode: single
+- id: '1699132622209'
+  alias: Reconnect Tapo Emilia
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.bett_emilia
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      message: Tapo Emilia war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
+        durchgeführt.
+      title: 'Tapo Emilia offline '
+    action: notify.notify
+    enabled: true
+  - action: unifi.reconnect_client
+    data:
+      device_id: d285c29f4b1190f2155ea009c4cd5f02
+  mode: single
+- id: '1705002692787'
+  alias: Reconnect Mi Desk Lamp
+  description: ''
+  triggers:
+  - entity_id:
+    - light.mijia_desk_lamp_1s
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      device_id: 53b9e6d92ac7b4feb78caf639b9bf567
+    action: unifi.reconnect_client
+  - data:
+      message: Mi Desk Lamp war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
+        durchgeführt.
+      title: 'Mi Desk Lamp offline '
+    action: notify.notify
+    enabled: false
+  mode: single
+- id: '1708031899166'
+  alias: Abfall Benachrichtigung
+  description: ''
+  trigger:
+  - platform: time
+    at: '18:00:00'
+  condition:
+  - condition: state
+    state: '1'
+    entity_id: sensor.abfallnotify
+    enabled: false
+  - condition: numeric_state
+    entity_id: sensor.abfallnotify
+    above: 0
+    below: 2
+  action:
+  - metadata: {}
+    data:
+      message: '{{ states(''sensor.abfallnotifytyp'') | replace(''['', '' '')| replace('']'',
+        '''') |     replace(''\'''', '''') + '' am '' + states(''sensor.nextabfalldate'')
+        }}'
+      title: Müllabfuhr Erinnerung
+    enabled: false
+    action: notify.mobile_app_pixel_8_pro
+  - metadata: {}
+    data:
+      title: '*Müllabfuhr Erinnerung*'
+      message: '{{ states(''sensor.abfallnotifytyp'') | replace(''['', '' '')| replace('']'',
+        '''')     |     replace(''\'''', '''') + '' am '' + states(''sensor.nextabfalldate'')
+        }}'
+    enabled: false
+    action: telegram_bot.send_message
+  - metadata: {}
+    data:
+      title: '*Müllabfuhr Erinnerung*'
+      message: '{{ states(''sensor.abfallnotifytyp'') | replace(''['', '' '')| replace('']'',
+        '''')     |     replace(''\'''', '''') + '' am '' + states(''sensor.nextabfalldate'')
+        }}'
+    action: notify.all_telegram
+    enabled: true
+  mode: single
+- id: '1708089310926'
+  alias: Auto - Rollos Open All
+  description: ''
+  triggers:
+  - at: 08:00:00
+    trigger: time
+  conditions: []
+  actions:
+  - continue_on_error: true
+    device_id: b31168d36b5d7e5f3455fede37ed583e
+    domain: cover
+    entity_id: 3bf22b6c7296364badaa5c29bfc26fc2
+    type: open
+  - continue_on_error: true
+    device_id: 450cc7712a68420c8d1bd42e34849ed8
+    domain: cover
+    entity_id: 8373d962d09ad9e790b34a9e8612e28b
+    type: open
+    enabled: false
+  - continue_on_error: true
+    device_id: 4c6dfb3fe36616c80b7436905018b47e
+    domain: cover
+    entity_id: 83baa922887c52a91d56cbe3f781ab27
+    type: open
+  - continue_on_error: true
+    device_id: 649d468e978bc49c85ab10cdb24f72c8
+    domain: cover
+    entity_id: f2fb6e6b01528a9f3286dba19a84abb5
+    type: open
+  - continue_on_error: true
+    device_id: 9c0a4942bcdbb224b047db05170d2fc5
+    domain: cover
+    entity_id: 3a627e9d2e0c16f3643979f542e4aefd
+    type: open
+  - continue_on_error: true
+    device_id: 6826e62a278dc4582fb788291ec3f06a
+    domain: cover
+    entity_id: c82fcd2ee3938ee667d91d4edbd95c04
+    type: open
+  - continue_on_error: true
+    device_id: bff711246c8392b787c8122828432e33
+    domain: cover
+    entity_id: 92e6d0af5f7a8bb5d11703c7d510c09c
+    type: open
+  - continue_on_error: true
+    device_id: 86a4ce5086d6400ce34ec78d2f30bb51
+    domain: cover
+    entity_id: 6bd28ac9e063ca1465c57dbbf157d9fc
+    type: open
+    enabled: false
+  - continue_on_error: true
+    device_id: 37a00e059c0e8cb65c0e644f4eb2821d
+    domain: cover
+    entity_id: 5a610b28f4f38cd2014dde3916f3dae5
+    type: open
+  mode: single
+- id: '1710280181676'
+  alias: 'Auto - Rollos Sonnenschutz '
+  description: ''
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: '2:00'
+  condition: []
+  action:
+  - continue_on_error: true
+    device_id: 9c0a4942bcdbb224b047db05170d2fc5
+    domain: cover
+    entity_id: 3a627e9d2e0c16f3643979f542e4aefd
+    type: set_position
+    position: 20
+  - continue_on_error: true
+    device_id: 6826e62a278dc4582fb788291ec3f06a
+    domain: cover
+    entity_id: c82fcd2ee3938ee667d91d4edbd95c04
+    type: set_position
+    position: 20
+  mode: single
+- id: '1711124432960'
+  alias: Fenster geöffnet
+  description: ''
+  triggers:
+  - type: opened
+    device_id: d64981b45aa75652e2c224d05488a3aa
+    entity_id: 9d8930de198f3ea5b88764abcad84b60
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: f8393df7d23d0698ec5de885a0937c73
+    entity_id: 847e16b9041ce970ce7091eaac375457
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: 75b5c58715a40c28e6f5235647c4c15d
+    entity_id: 0dd7a7305b357516b54e922cc9261483
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: 2c10f63bc52054fe58382e83baa1e4e0
+    entity_id: 29acd08ec0e6b4b218aa966f22942748
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: 8c1bc15ea884c38c220cd589dd787682
+    entity_id: 48473df1b1fa8f71d33b0de1463bb1f3
+    domain: binary_sensor
+    enabled: true
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  conditions:
+  - condition: state
+    entity_id: input_boolean.alarm_active
+    state: 'on'
+  - alias: 'qu4nd nicht anwesend '
+    condition: not
+    conditions:
+    - condition: state
+      entity_id: person.qu4nd
+      state: home
+    enabled: true
+  - alias: 'Ina nicht anwesend '
+    condition: not
+    conditions:
+    - condition: state
+      entity_id: person.ina
+      state: home
+    enabled: true
+  - alias: 'Filipp nicht anwesend '
+    condition: not
+    conditions:
+    - condition: state
+      entity_id: person.filipp
+      state: home
+    enabled: true
+  - alias: 'Putzfrau nicht anwesend '
+    condition: not
+    conditions:
+    - condition: time
+      after: 08:00:00
+      before: '13:00:00'
+      weekday:
+      - wed
+    enabled: true
+  actions:
+  - alias: HA Notification
+    continue_on_error: true
+    metadata: {}
+    data:
+      message: '{{ trigger.to_state.attributes.friendly_name }} wurde geöffnet!'
+      title: "\U0001F6A8\U0001F6A8\U0001F6A8 Fenster Alarm \U0001F6A8\U0001F6A8\U0001F6A8"
+    enabled: true
+    action: notify.notify
+  - continue_on_error: true
+    metadata: {}
+    data:
+      title: "\U0001F6A8\U0001F6A8\U0001F6A8 *Alarm Fenstersensor* \U0001F6A8\U0001F6A8\U0001F6A8"
+      message: '{{ trigger.to_state.attributes.friendly_name }} wurde geöffnet!'
+    enabled: true
+    alias: Telegram Bot All
+    action: notify.all_telegram
+  - alias: Set Bose Volume
+    continue_on_error: true
+    metadata: {}
+    data:
+      volume_level: 1
+    target:
+      entity_id: media_player.bose_soundbar_500
+    enabled: true
+    action: media_player.volume_set
+  - alias: 'Repeated Alarm '
+    continue_on_error: true
+    repeat:
+      sequence:
+      - continue_on_error: true
+        target:
+          entity_id: media_player.bose_soundbar_500
+        data:
+          media_content_id: media-source://media_source/local/mixkit-classic-alarm-995.wav
+          media_content_type: audio/x-wav
+        metadata:
+          title: mixkit-classic-alarm-995.wav
+          thumbnail:
+          media_class: music
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://media_source
+        action: media_player.play_media
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 4
+          milliseconds: 500
+      until:
+      - condition: state
+        entity_id: input_boolean.alarm_active
+        state: 'off'
+    enabled: true
+  mode: single
+- id: '1713180547064'
+  alias: Action - All Lights off
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - continue_on_error: true
+    type: turn_off
+    device_id: 0ec6f80f65b91bb3f22722f004edc49d
+    entity_id: d671d73df0453a31d3c339faba900d5f
+    domain: switch
+  - continue_on_error: true
+    type: turn_off
+    device_id: 4ea29f7266e1aa5e7c9aebb2ba741a48
+    entity_id: 2bff9da54db769cced8f0edba872a08a
+    domain: switch
+  - continue_on_error: true
+    type: turn_off
+    device_id: f35ca07c562fdda04c8d440027239399
+    entity_id: a22a29367ffd41ed3f054eca89b8e471
+    domain: switch
+  - continue_on_error: true
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - light.hue_beleuchtung_terrasse
+    action: light.turn_off
+  - continue_on_error: true
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.schlafzimmer
+    action: light.turn_off
+  - type: turn_off
+    device_id: d285c29f4b1190f2155ea009c4cd5f02
+    entity_id: b893193bdb0769c1ce162eac0b438355
+    domain: switch
+  - type: turn_off
+    device_id: aff0d7d8195411bf2ed204da02d33867
+    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    domain: switch
+  - continue_on_error: true
+    action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.weihnachtsbeleuchtung
+    enabled: false
+  mode: single
+- id: '1713379605143'
+  alias: 'Reconnect Schreibtisch '
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.schreibtisch
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      device_id: c6b2abfee2bc326789be63cd04572f48
+    action: unifi.reconnect_client
+  - data:
+      message: Schreibtisch war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
+        durchgeführt.
+      title: 'Schreibtisch offline '
+    action: notify.notify
+    enabled: false
+  mode: single
+- id: '1713503968569'
+  alias: Set Alexa volume 1
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      volume_level: 1
+    action: media_player.volume_set
+    target:
+      device_id: 575aca62e923709e7067beb55913e60b
+  mode: single
+- id: '1713504008253'
+  alias: Set Alexa volume 0.3
+  description: ''
+  triggers: []
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      volume_level: 0.3
+    action: media_player.volume_set
+    enabled: true
+    target:
+      device_id:
+      - 575aca62e923709e7067beb55913e60b
+      - c46011270aa1b034eea36b2ed2fd5038
+  mode: single
+- id: '1715084131217'
+  alias: Auto - Schlafenszeit Emilia
+  description: ''
+  triggers:
+  - at: '19:30:00'
+    trigger: time
+  conditions: []
+  actions:
+  - device_id: 6826e62a278dc4582fb788291ec3f06a
+    domain: cover
+    entity_id: c82fcd2ee3938ee667d91d4edbd95c04
+    type: close
+    enabled: true
+  - type: turn_on
+    device_id: d285c29f4b1190f2155ea009c4cd5f02
+    entity_id: b893193bdb0769c1ce162eac0b438355
+    domain: switch
+  - device_id: 649d468e978bc49c85ab10cdb24f72c8
+    domain: cover
+    entity_id: f2fb6e6b01528a9f3286dba19a84abb5
+    type: close
+    enabled: false
+  - device_id: 9c0a4942bcdbb224b047db05170d2fc5
+    domain: cover
+    entity_id: 3a627e9d2e0c16f3643979f542e4aefd
+    type: set_position
+    position: 33
+    enabled: false
+  mode: single
+- id: '1715204022289'
+  alias: New automation
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.korblampe
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      device_id: aff0d7d8195411bf2ed204da02d33867
+    action: unifi.reconnect_client
+  - data:
+      message: Tapo Korblampe war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
+        durchgeführt.
+      title: 'Tapo Korblampe offline '
+    action: notify.notify
+    enabled: true
+  mode: single
+- id: '1718200819816'
+  alias: 'Cloudflare state notification '
+  description: ''
+  triggers:
+  - entity_id:
+    - binary_sensor.cloudflared_running
+    from: 'on'
+    to:
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    trigger: state
+  - entity_id:
+    - binary_sensor.cloudflared_running
+    from:
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+    trigger: state
+    to: 'on'
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      title: Cloudflare tunnel state changed
+      message: '{{''Cloudflare tunnel '' + states(''binary_sensor.cloudflared_running'')}}'
+    action: notify.notify
+  mode: single
+- id: '1721932607190'
+  alias: Steckdose 1 off
+  description: ''
+  triggers:
+  - entity_id:
+    - switch.steckdose_1
+    to: 'off'
+    trigger: state
+    from: 'on'
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      title: Steckdose 1 turned off
+      message: Steckdose 1 (Landroid M) turned off.
+    action: notify.notify
+  - action: notify.philips_android_tv
+    metadata: {}
+    data:
+      message: Steckdose 1 (Landroid M) turned off.
+      title: Steckdose 1 turned off
+      data:
+        icon:
+          path: /config/www/ha-logo.png
+        fontsize: large
+        position: bottom-right
+        duration: 5
+        transparency: 25%
+        color: black
+    enabled: false
+  mode: single
+- id: '1726086022021'
+  alias: Müllabfuhr Benachrichtigung
+  description: ''
+  triggers:
+  - entity_id: calendar.regioentsorgung_stadteregion_aachen
+    event: start
+    offset: '-6:0:0'
+    enabled: true
+    trigger: calendar
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      title: "\U0001F69B *Müllabfuhr Erinnerung*"
+      message: '{{ trigger.calendar_event.summary }} am {{ trigger.calendar_event.start
+        }}'
+    action: notify.all_telegram
+    enabled: true
+  mode: single
+- id: '1733815527372'
+  alias: Reconnect Rollo Büro
+  description: ''
+  triggers:
+  - entity_id:
+    - cover.rollo_buro
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      device_id: 37a00e059c0e8cb65c0e644f4eb2821d
+    action: unifi.reconnect_client
+  mode: single
+- id: '1734442248183'
+  alias: New automation
+  description: ''
+  triggers:
+  - entity_id:
+    - cover.markise
+    to: unavailable
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    trigger: state
+  conditions: []
+  actions:
+  - data:
+      device_id: 9a03376b0db63bdebca09038d63c1535
+    action: unifi.reconnect_client
+  - data:
+      message: Somfy Connectivity Kit war 5 Minuten nicht verfügbar. Reconnect in
+        UniFi wird durchgeführt.
+      title: 'Somfy Connectivity Kit offline '
+    action: notify.notify
+    enabled: true
+  mode: single
+- id: '1734979635615'
+  alias: 'Waschmaschine fertig '
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.pixel_8_pro_last_notification
+    attribute: android.text
+    to: Waschmaschine/Trockner ist fertig!
+  conditions: []
+  actions:
+  - metadata: {}
+    data:
+      message: '* Waschmaschine/Trockner ist fertig! *'
+    action: notify.all_telegram
+    enabled: false
+  mode: single
+- id: '1738692695708'
+  alias: 'Serverschrank Temperatur Warnung '
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.tempi_serverschrank_temperature
+    above: 30
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      title: "\U0001F321️ \U0001F321️ Serverschrank Temperatur \U0001F321️\U0001F321️"
+      message: 'Die zulässige Temperatur im Serverschrank von 30°C wurde überschritten! '
+  mode: single
+- id: '1740399283026'
+  alias: Notify Motion Nest Cam Küche
+  description: ''
+  triggers:
+  - device_id: 4e1a4152c2daa57adeef8b2e1fd9d777
+    domain: nest
+    type: camera_motion
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      message: Nest Cam Küche hate eine Bewegung in Wohnraum erkannt!
+      title: Bewegung erkannt!
+  mode: single
+- id: '1740399564100'
+  alias: Doorbell pressed
+  description: ''
+  triggers:
+  - device_id: 3786d7e38f0b4888ba65455373856c4a
+    domain: nest
+    type: doorbell_chime
+    trigger: device
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      title: "\U0001F514\U0001F514\U0001F514 Klingeling \U0001F514\U0001F514\U0001F514"
+      message: Es ist jemand an der Haustür!
+  mode: single
+- id: '1741860654757'
+  alias: Helene Wischer Maintenance
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.helene_wischer_filter_time_left
+    - sensor.helene_wischer_main_brush_time_left
+    - sensor.helene_wischer_side_brush_time_left
+    below: 10
+  - trigger: numeric_state
+    entity_id:
+    - sensor.helene_wischer_sensor_time_left
+    below: 1
+  conditions:
+  - condition: state
+    entity_id: input_boolean.helene_wischer_known_maitenance
+    state: 'off'
+  actions:
+  - action: input_boolean.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.helene_wischer_known_maitenance
+    enabled: false
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      title: "\U0001F527 Helene Wischer Maintenance"
+      message: '{{ state_attr(trigger.entity_id, ''friendly_name'') }} below required
+        value'
+    enabled: false
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      title: "\U0001F527 Helene Wischer Maintenance"
+      message: TESTNACHRICHT
+      data:
+        actions:
+        - action: RESET_MAINTENANCE
+          title: Reset Maintenance
+          icon: mdi:check-underline-circle
+    enabled: false
+  - wait_for_trigger:
+    - trigger: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: RESET_MAINTENANCE
+    timeout:
+      hours: 0
+      minutes: 10
+      seconds: 0
+      milliseconds: 0
+    enabled: false
+  - action: input_boolean.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.helene_wischer_known_maitenance
+    enabled: false
+  - action: script.confirmable_helene_wischer_maintenance
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1742558349766'
+  alias: Wetterwarnung
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.stadteregion_aachen_current_weather_warning_level
+    above: 0
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      message: '"{{ state_attr(''sensor.stadteregion_aachen_current_weather_warning_level'',''warning_1_description'')
+        }}" '
+      title: '"DWD Wetterwarnung Level {{ state_attr(''sensor.stadteregion_aachen_current_weather_warning_level'',''warning_1_level'')
+        }}"'
+  mode: single
+- id: '1742560133696'
+  alias: Regenwarnung
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.rrrainin120min
+    above: 0
+  conditions: []
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      message: '{{ states("sensor.rrraintext") }}'
+      title: Regenwarnung!
+  mode: single
