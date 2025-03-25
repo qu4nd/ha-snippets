@@ -1,0 +1,35 @@
+#- platform: waste_collection_schedule
+  #name: AbfallNotify
+#  details_format: 'upcoming'
+#  value_template: '{{value.daysTo}}'
+#- platform: template
+#  sensors:
+#    nighttime:
+#      friendly_name: 'Before 8am'
+#      value_template: '{{now().hour < 8}}'     
+
+- platform: rest
+  name: regenradar
+  scan_interval: 300
+  json_attributes:
+    - raintext
+    - rainin30min
+    - rainin60min
+    - rainin120min
+  resource: https://morgenwirdes.de/api/v3/rain.php?plz=52134
+  value_template: "{{ value_json.raintext }}"
+
+- platform: template
+  sensors:
+    rrraintext:
+      friendly_name: "Regentext"
+      value_template: "{{ state_attr('sensor.regenradar', 'raintext') }}"
+    rrrainin30min:
+      friendly_name: "Regenin30min"
+      value_template: "{{ state_attr('sensor.regenradar', 'rainin30min') }}"
+    rrrainin60min:
+      friendly_name: "Regenin60min"
+      value_template: "{{ state_attr('sensor.regenradar', 'rainin60min') }}"
+    rrrainin120min:
+      friendly_name: "Regenin120min"
+      value_template: "{{ state_attr('sensor.regenradar', 'rainin120min') }}"
