@@ -4,7 +4,84 @@ cards:
     heading_style: title
     heading: "INDOOR CLIMATE "
   - type: heading
-    icon: ""
+    icon: phu:desktop-computer
+    heading_style: subtitle
+    badges:
+      - type: entity
+        show_state: true
+        show_icon: true
+        entity: sensor.tempi_buro_battery
+    heading: Büro
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:mushroom-entity-card
+        entity: sensor.buro_climate
+        primary_info: none
+        icon_color: green
+        icon: mdi:emoticon-happy
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.buro_climate
+            state: good
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_buro_temperature
+        primary_info: none
+        icon_color: amber
+        icon: mdi:emoticon-neutral-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.buro_climate
+            state: medium
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_buro_temperature
+        primary_info: none
+        icon_color: deep-orange
+        icon: mdi:emoticon-sad-outline
+        secondary_info: none
+        visibility:
+          - condition: state
+            entity: sensor.buro_climate
+            state: bad
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_buro_temperature
+        primary_info: state
+        secondary_info: none
+        icon_color: primary
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_buro_humidity
+        primary_info: state
+        secondary_info: none
+        icon_color: primary
+        card_mod:
+          style: |
+            ha-card {
+            border: none;
+            }
+  - type: heading
+    icon: mdi:bed
     heading: Schlafzimmer
     heading_style: subtitle
     badges:
@@ -79,7 +156,7 @@ cards:
             border: none;
             }
   - type: heading
-    icon: ""
+    icon: mdi:teddy-bear
     heading: Kinderzimmer
     heading_style: subtitle
     badges:
@@ -154,7 +231,7 @@ cards:
             border: none;
             }
   - type: heading
-    icon: ""
+    icon: mdi:washing-machine
     heading: Waschraum
     heading_style: subtitle
     badges:
@@ -229,7 +306,7 @@ cards:
             border: none;
             }
   - type: heading
-    icon: ""
+    icon: mdi:home-roof
     heading: Dachstudio
     heading_style: subtitle
   - type: custom:stack-in-card
