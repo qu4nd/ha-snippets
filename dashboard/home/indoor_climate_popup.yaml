@@ -44,7 +44,7 @@ cards:
       columns: 6
       rows: 1
     show_icon: true
-    scrolling_effect: false
+    scrolling_effect: true
   - type: vertical-stack
     cards:
       - type: custom:bubble-card
@@ -106,7 +106,7 @@ cards:
         color: ${hass.states['sensor.buro_climate'].state == 'good' ? 'green' : hass.states['sensor.buro_climate'].state == 'medium' ? 'orange' : 'red'} !important;
       }
     entity: sensor.buro_climate
-    scrolling_effect: false
+    scrolling_effect: true
     show_last_changed: false
     card_layout: large
     grid_options:
@@ -173,7 +173,7 @@ cards:
         color: ${hass.states['sensor.kind_climate'].state == 'good' ? 'green' : hass.states['sensor.kind_climate'].state == 'medium' ? 'orange' : 'red'} !important;
       }
     entity: sensor.kind_climate
-    scrolling_effect: false
+    scrolling_effect: true
     show_last_changed: false
     card_layout: large
     double_tap_action:
@@ -183,6 +183,7 @@ cards:
     grid_options:
       columns: 6
       rows: 1
+    show_icon: true
   - type: vertical-stack
     cards:
       - type: custom:bubble-card
@@ -244,7 +245,7 @@ cards:
         color: ${hass.states['sensor.waschraum_climate'].state == 'good' ? 'green' : hass.states['sensor.waschraum_climate'].state == 'medium' ? 'orange' : 'red'} !important;
       }
     entity: sensor.waschraum_climate
-    scrolling_effect: false
+    scrolling_effect: true
     show_last_changed: false
     card_layout: large
     double_tap_action:
