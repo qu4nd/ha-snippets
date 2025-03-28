@@ -1,0 +1,285 @@
+type: grid
+cards:
+  - type: heading
+    heading_style: title
+    heading: "INDOOR CLIMATE "
+  - type: custom:bubble-card
+    open_action:
+      action: navigate
+      navigation_path: "#sz_climate"
+    hash: "#pop-up-sz"
+    button_type: switch
+    name: Schlafzimmer
+    card_type: button
+    tap_action:
+      action: navigate
+      navigation_path: "#sz_climate"
+    entity: sensor.schlafzimmer_climate
+    show_state: false
+    show_attribute: false
+    attribute: icon
+    button_action:
+      tap_action:
+        action: navigate
+        navigation_path: "#sz_climate"
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+    sub_button:
+      - entity: sensor.tempi_schlafzimmer_battery
+        show_state: true
+        show_background: false
+        show_name: false
+    styles: |
+      .bubble-icon {
+        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+      }
+    card_layout: large
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    grid_options:
+      columns: 6
+      rows: 1
+    show_icon: true
+    scrolling_effect: false
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#sz_climate"
+        button_type: state
+        entity: sensor.schlafzimmer_climate
+        name: Schlafzimmer
+        card_layout: large
+        close_on_click: true
+        show_state: true
+        show_attribute: false
+        force_icon: false
+        show_header: false
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_schlafzimmer_temperature
+        scrolling_effect: false
+        show_name: false
+        show_icon: true
+        card_layout: large
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_schlafzimmer_humidity
+        scrolling_effect: false
+        show_name: false
+        card_layout: large
+  - type: custom:bubble-card
+    open_action:
+      action: navigate
+      navigation_path: "#sz_climate"
+    hash: "#pop-up-sz"
+    button_type: switch
+    name: Büro
+    card_type: button
+    tap_action:
+      action: navigate
+      navigation_path: "#b_climate"
+    show_state: false
+    show_attribute: false
+    attribute: icon
+    button_action:
+      tap_action:
+        action: navigate
+        navigation_path: "#b_climate"
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+    sub_button:
+      - entity: sensor.tempi_buro_battery
+        show_state: true
+        show_background: false
+        show_name: false
+    styles: |
+      .bubble-icon {
+        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+      }
+    entity: sensor.buro_climate
+    scrolling_effect: false
+    show_last_changed: false
+    card_layout: large
+    grid_options:
+      columns: 6
+      rows: 1
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#b_climate"
+        button_type: state
+        entity: sensor.schlafzimmer_climate
+        name: Schlafzimmer
+        card_layout: large
+        close_on_click: true
+        show_state: true
+        show_attribute: false
+        force_icon: false
+        show_header: false
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_buro_temperature
+        scrolling_effect: false
+        show_name: false
+        show_icon: true
+        card_layout: large
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_buro_humidity
+        scrolling_effect: false
+        show_name: false
+        card_layout: large
+  - type: custom:bubble-card
+    open_action:
+      action: navigate
+      navigation_path: "#sz_climate"
+    hash: "#pop-up-sz"
+    button_type: switch
+    name: Kinderzimmer
+    card_type: button
+    tap_action:
+      action: navigate
+      navigation_path: "#kz_climate"
+    show_state: false
+    show_attribute: false
+    attribute: icon
+    button_action:
+      tap_action:
+        action: navigate
+        navigation_path: "#kz_climate"
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+    sub_button:
+      - entity: sensor.tempi_kind_battery
+        show_state: true
+        show_background: false
+        show_name: false
+    styles: |
+      .bubble-icon {
+        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+      }
+    entity: sensor.kind_climate
+    scrolling_effect: false
+    show_last_changed: false
+    card_layout: large
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    grid_options:
+      columns: 6
+      rows: 1
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#kz_climate"
+        button_type: state
+        entity: sensor.schlafzimmer_climate
+        name: Schlafzimmer
+        card_layout: large
+        close_on_click: true
+        show_state: true
+        show_attribute: false
+        force_icon: false
+        show_header: false
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_kind_temperature
+        scrolling_effect: false
+        show_name: false
+        show_icon: true
+        card_layout: large
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_kind_humidity
+        scrolling_effect: false
+        show_name: false
+        card_layout: large
+  - type: custom:bubble-card
+    open_action:
+      action: navigate
+      navigation_path: "#sz_climate"
+    hash: "#pop-up-sz"
+    button_type: switch
+    name: Waschraum
+    card_type: button
+    tap_action:
+      action: navigate
+      navigation_path: "#wr_climate"
+    show_state: false
+    show_attribute: false
+    attribute: icon
+    button_action:
+      tap_action:
+        action: navigate
+        navigation_path: "#wr_climate"
+      double_tap_action:
+        action: none
+      hold_action:
+        action: none
+    sub_button:
+      - entity: sensor.tempi_waschraum_battery
+        show_state: true
+        show_background: false
+        show_name: false
+    styles: |
+      .bubble-icon {
+        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+      }
+    entity: sensor.waschraum_climate
+    scrolling_effect: false
+    show_last_changed: false
+    card_layout: large
+    double_tap_action:
+      action: none
+    hold_action:
+      action: none
+    grid_options:
+      columns: 6
+      rows: 1
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#wr_climate"
+        button_type: state
+        entity: sensor.schlafzimmer_climate
+        name: Schlafzimmer
+        card_layout: large
+        close_on_click: true
+        show_state: true
+        show_attribute: false
+        force_icon: false
+        show_header: false
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_waschraum_temperature
+        scrolling_effect: false
+        show_name: false
+        show_icon: true
+        card_layout: large
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: sensor.tempi_waschraum_humidity
+        scrolling_effect: false
+        show_name: false
+        card_layout: large
