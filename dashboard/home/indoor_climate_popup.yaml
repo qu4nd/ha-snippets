@@ -31,9 +31,9 @@ cards:
         show_state: true
         show_background: false
         show_name: false
-    styles: |
+    styles: |-
       .bubble-icon {
-        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+        color: ${hass.states['sensor.schlafzimmer_climate'].state == 'good' ? 'green' : hass.states['sensor.schlafzimmer_climate'].state == 'medium' ? 'orange' : 'red'} !important;
       }
     card_layout: large
     double_tap_action:
@@ -101,9 +101,9 @@ cards:
         show_state: true
         show_background: false
         show_name: false
-    styles: |
+    styles: |-
       .bubble-icon {
-        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+        color: ${hass.states['sensor.buro_climate'].state == 'good' ? 'green' : hass.states['sensor.buro_climate'].state == 'medium' ? 'orange' : 'red'} !important;
       }
     entity: sensor.buro_climate
     scrolling_effect: false
@@ -168,9 +168,9 @@ cards:
         show_state: true
         show_background: false
         show_name: false
-    styles: |
+    styles: |-
       .bubble-icon {
-        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+        color: ${hass.states['sensor.kind_climate'].state == 'good' ? 'green' : hass.states['sensor.kind_climate'].state == 'medium' ? 'orange' : 'red'} !important;
       }
     entity: sensor.kind_climate
     scrolling_effect: false
@@ -239,9 +239,9 @@ cards:
         show_state: true
         show_background: false
         show_name: false
-    styles: |
+    styles: |-
       .bubble-icon {
-        color: ${hass.states['sensor.schlafzimmer_climate'].state === 'good' ? 'green' : 'orange'} !important;
+        color: ${hass.states['sensor.waschraum_climate'].state == 'good' ? 'green' : hass.states['sensor.waschraum_climate'].state == 'medium' ? 'orange' : 'red'} !important;
       }
     entity: sensor.waschraum_climate
     scrolling_effect: false
