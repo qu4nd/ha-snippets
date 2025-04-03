@@ -1,0 +1,54 @@
+version: 4
+mqtt:
+  base_topic: zigbee2mqtt
+  server: mqtt://core-mosquitto:1883
+  user: addons
+  password: #PASSWORD REMOVED
+serial:
+  port: /dev/ttyUSB0
+  adapter: ember
+advanced:
+  log_level: info
+  channel: 11
+  network_key:
+    - 56
+    - 59
+    - 72
+    - 112
+    - 145
+    - 64
+    - 123
+    - 212
+    - 111
+    - 157
+    - 76
+    - 236
+    - 7
+    - 64
+    - 152
+    - 121
+  pan_id: 42782
+  ext_pan_id:
+    - 24
+    - 12
+    - 129
+    - 214
+    - 188
+    - 66
+    - 164
+    - 138
+  transmit_power: 20
+frontend:
+  enabled: true
+  port: 8099
+homeassistant:
+  enabled: true
+devices:
+  '0x000d6ffffe9dfabe':
+    friendly_name: Ikea Tradfri Repeater
+  '0xa4c13862122bb0ce':
+    friendly_name: Fenster Bad
+  '0x086bd7fffe1e9207':
+    friendly_name: Tradfri Remote
+  '0x000d6ffffea4e14b':
+    friendly_name: Fyrtur Büro
