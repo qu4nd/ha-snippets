@@ -271,47 +271,6 @@
     action: notify.notify
     enabled: false
   mode: single
-- id: '1708031899166'
-  alias: Abfall Benachrichtigung
-  description: ''
-  trigger:
-  - platform: time
-    at: '18:00:00'
-  condition:
-  - condition: state
-    state: '1'
-    entity_id: sensor.abfallnotify
-    enabled: false
-  - condition: numeric_state
-    entity_id: sensor.abfallnotify
-    above: 0
-    below: 2
-  action:
-  - metadata: {}
-    data:
-      message: '{{ states(''sensor.abfallnotifytyp'') | replace(''['', '' '')| replace('']'',
-        '''') |     replace(''\'''', '''') + '' am '' + states(''sensor.nextabfalldate'')
-        }}'
-      title: Müllabfuhr Erinnerung
-    enabled: false
-    action: notify.mobile_app_pixel_8_pro
-  - metadata: {}
-    data:
-      title: '*Müllabfuhr Erinnerung*'
-      message: '{{ states(''sensor.abfallnotifytyp'') | replace(''['', '' '')| replace('']'',
-        '''')     |     replace(''\'''', '''') + '' am '' + states(''sensor.nextabfalldate'')
-        }}'
-    enabled: false
-    action: telegram_bot.send_message
-  - metadata: {}
-    data:
-      title: '*Müllabfuhr Erinnerung*'
-      message: '{{ states(''sensor.abfallnotifytyp'') | replace(''['', '' '')| replace('']'',
-        '''')     |     replace(''\'''', '''') + '' am '' + states(''sensor.nextabfalldate'')
-        }}'
-    action: notify.all_telegram
-    enabled: true
-  mode: single
 - id: '1708089310926'
   alias: Auto - Rollos Open All
   description: ''
@@ -371,12 +330,12 @@
 - id: '1710280181676'
   alias: 'Auto - Rollos Sonnenschutz '
   description: ''
-  trigger:
-  - platform: sun
-    event: sunrise
-    offset: '2:00'
-  condition: []
-  action:
+  triggers:
+  - event: sunrise
+    offset: '2:00:00'
+    trigger: sun
+  conditions: []
+  actions:
   - continue_on_error: true
     device_id: 9c0a4942bcdbb224b047db05170d2fc5
     domain: cover
@@ -632,6 +591,13 @@
     target:
       device_id:
       - 575aca62e923709e7067beb55913e60b
+  - metadata: {}
+    data:
+      volume_level: 0.2
+    action: media_player.volume_set
+    enabled: true
+    target:
+      device_id:
       - c46011270aa1b034eea36b2ed2fd5038
   mode: single
 - id: '1715084131217'
@@ -938,24 +904,6 @@
     metadata: {}
     data: {}
   mode: single
-- id: '1742558349766'
-  alias: Wetterwarnung
-  description: ''
-  triggers:
-  - trigger: numeric_state
-    entity_id:
-    - sensor.stadteregion_aachen_current_weather_warning_level
-    above: 0
-  conditions: []
-  actions:
-  - action: notify.mobile_app_pixel_8_pro
-    metadata: {}
-    data:
-      message: '"{{ state_attr(''sensor.stadteregion_aachen_current_weather_warning_level'',''warning_1_description'')
-        }}" '
-      title: '"DWD Wetterwarnung Level {{ state_attr(''sensor.stadteregion_aachen_current_weather_warning_level'',''warning_1_level'')
-        }}"'
-  mode: single
 - id: '1742560133696'
   alias: Regenwarnung
   description: ''
@@ -972,3 +920,46 @@
       message: '{{ states("sensor.rrraintext") }}'
       title: Regenwarnung!
   mode: single
+- id: '1743620295942'
+  alias: Fenster Bad Notification
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.fenster_bad_contact
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+  conditions: []
+  actions:
+  - action: notify.alexa_media_echo_show_buro
+    metadata: {}
+    data:
+      message: '{{ trigger.to_state.attributes.friendly_name }} ist seit 15 Minuten
+        geöffnet! Bitte schließen!'
+  mode: single
+- id: '1743664433379'
+  alias: IKEA Tradfri Open Close Button
+  description: ''
+  use_blueprint:
+    path: fender4645/ikea-tradfri-open-close-button-z2m-device-trigger.yaml
+    input:
+      input_device: 4cde8a1a1c24cc4d05e73aeb52c150de
+      button_open_short_press:
+      - device_id: ea5c5e07b2bd2b5a92c25015cddf71bd
+        domain: cover
+        entity_id: 7c291a12dd0c5be7b582f4c9c96a2edf
+        type: open
+      button_close_short_press:
+      - device_id: ea5c5e07b2bd2b5a92c25015cddf71bd
+        domain: cover
+        entity_id: 7c291a12dd0c5be7b582f4c9c96a2edf
+        type: set_position
+        position: 5
+      button_any_long_press:
+      - action: notify.mobile_app_pixel_8_pro
+        metadata: {}
+        data:
+          message: LONG PRESS
