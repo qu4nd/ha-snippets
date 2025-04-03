@@ -12,7 +12,7 @@ http:
   trusted_proxies:
     - 172.16.0.0/12
     - 172.30.33.0/24
-    
+
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
@@ -25,7 +25,7 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 sensor: !include sensors.yaml
 
-# recorder configuration        
+# recorder configuration
 recorder:
   purge_keep_days: 60
   exclude:
@@ -56,7 +56,6 @@ recorder:
       - binary_sensor.e1_outdoor_*
       - sensor.rrr*
 
-        
 # Telegram Bot config
 telegram_bot:
   - platform: polling
@@ -72,10 +71,21 @@ notify:
     name: ha_telegram_bot_ina
     chat_id: !secret telegram_chat_id_ina
   - name: all_telegram
-    platform: group 
+    platform: group
     services:
       - service: ha_telegram_bot_daniel
       - service: ha_telegram_bot_ina
+
+# Hue Emulation for Alexa Access
+emulated_hue:
+  type: alexa
+  host_ip: 192.168.178.24
+  listen_port: 80
+  expose_by_default: false
+  entities:
+    cover.fyrtur_buro:
+      name: "Jalousie Büro"
+      hidden: false
       
 #DEPRECATED
 # Abfallkalender config
@@ -92,7 +102,7 @@ notify:
 #        - type: Restabfall 2-Rad Behaelter 02-woechentl.
 #          alias: Restmüll
 #        - type: Papierabfuhr 2-Rad Behaelter 04-woechentl.
-#          alias: Papiertonne  
+#          alias: Papiertonne
 #        - type: Gruenschnitt-Strassensammlung
 #          show: false
 
