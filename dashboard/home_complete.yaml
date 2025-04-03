@@ -324,9 +324,14 @@ views:
             tap_action:
               action: toggle
             visibility:
-              - condition: state
-                entity: switch.generic_2
-                state_not: unavailable
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: switch.generic_2
+                    state: 'on'
+                  - condition: state
+                    entity: switch.generic_2
+                    state: 'off'
             color: primary
             features_position: bottom
             vertical: false
@@ -336,9 +341,14 @@ views:
             tap_action:
               action: toggle
             visibility:
-              - condition: state
-                entity: switch.generic_1
-                state_not: unavailable
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: switch.generic_1
+                    state: 'on'
+                  - condition: state
+                    entity: switch.generic_1
+                    state: 'off'
             color: primary
             features_position: bottom
             vertical: false
@@ -347,9 +357,14 @@ views:
               action: toggle
             icon: mdi:power-socket-de
             visibility:
-              - condition: state
-                entity: switch.generic_3
-                state_not: unavailable
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity: switch.generic_3
+                    state: 'on'
+                  - condition: state
+                    entity: switch.generic_3
+                    state: 'off'
             entity: switch.generic_3
             color: primary
             features_position: bottom
@@ -425,7 +440,7 @@ views:
               columns: 6
               rows: 1
             show_icon: true
-            scrolling_effect: false
+            scrolling_effect: true
           - type: vertical-stack
             cards:
               - type: custom:bubble-card
@@ -487,7 +502,7 @@ views:
                 color: ${hass.states['sensor.buro_climate'].state == 'good' ? 'green' : hass.states['sensor.buro_climate'].state == 'medium' ? 'orange' : 'red'} !important;
               }
             entity: sensor.buro_climate
-            scrolling_effect: false
+            scrolling_effect: true
             show_last_changed: false
             card_layout: large
             grid_options:
@@ -554,7 +569,7 @@ views:
                 color: ${hass.states['sensor.kind_climate'].state == 'good' ? 'green' : hass.states['sensor.kind_climate'].state == 'medium' ? 'orange' : 'red'} !important;
               }
             entity: sensor.kind_climate
-            scrolling_effect: false
+            scrolling_effect: true
             show_last_changed: false
             card_layout: large
             double_tap_action:
@@ -564,6 +579,7 @@ views:
             grid_options:
               columns: 6
               rows: 1
+            show_icon: true
           - type: vertical-stack
             cards:
               - type: custom:bubble-card
@@ -625,7 +641,7 @@ views:
                 color: ${hass.states['sensor.waschraum_climate'].state == 'good' ? 'green' : hass.states['sensor.waschraum_climate'].state == 'medium' ? 'orange' : 'red'} !important;
               }
             entity: sensor.waschraum_climate
-            scrolling_effect: false
+            scrolling_effect: true
             show_last_changed: false
             card_layout: large
             double_tap_action:
@@ -736,14 +752,6 @@ views:
           - type: heading
             heading_style: title
             heading: CAMERAS
-          - type: heading
-            icon: mdi:cctv
-            heading_style: subtitle
-            heading: Zufahrt Garage offline
-            visibility:
-              - condition: state
-                entity: camera.e1_outdoor_clear
-                state: unavailable
           - show_state: true
             show_name: true
             camera_view: live
@@ -754,7 +762,7 @@ views:
             visibility:
               - condition: state
                 entity: camera.e1_outdoor_clear
-                state_not: unavailable
+                state: clear
             camera_image: camera.e1_outdoor_fluent
           - type: tile
             entity: camera.nest_cam_kuche
@@ -842,6 +850,31 @@ views:
             state_content:
               - state
               - last-changed
+            entity: binary_sensor.fenster_bad_contact
+            features_position: bottom
+            vertical: false
+            name: Bad
+          - type: tile
+            entity: sensor.fenster_bad_battery
+            show_entity_picture: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_bad_battery
+                below: 15
+            hide_state: false
+            vertical: false
+            state_content:
+              - state
+              - last_updated
+            features_position: bottom
+            name: Bad
+          - type: tile
+            icon: ''
+            color: primary
+            show_entity_picture: false
+            state_content:
+              - state
+              - last-changed
             entity: binary_sensor.fenster_ankleide_window
             name: 'Ankleide '
           - type: tile
@@ -904,17 +937,6 @@ views:
             grid_options:
               columns: full
               rows: 1
-          - type: heading
-            icon: mdi:robot-mower
-            heading_style: subtitle
-            heading: Landroid M offline
-            visibility:
-              - condition: state
-                entity: lawn_mower.m
-                state: unavailable
-            grid_options:
-              columns: 12
-              rows: auto
           - image: default
             image_size: '4'
             show_animation: true
@@ -1090,6 +1112,18 @@ views:
               columns: 6
               rows: 2
             name: Bad
+          - features:
+              - type: cover-open-close
+            type: tile
+            entity: cover.fyrtur_buro
+            vertical: false
+            show_entity_picture: false
+            grid_options:
+              columns: 6
+              rows: 2
+            features_position: bottom
+            name: Blind Büro
+            hide_state: false
           - features:
               - type: cover-open-close
             type: tile
@@ -1770,4 +1804,8 @@ views:
     visible:
       - user: 64d0a975dc4a4bbe9e3cffc587ca23bf
     type: sections
-    sections: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: New section
