@@ -1,0 +1,130 @@
+type: grid
+cards:
+  - type: heading
+    heading_style: title
+    heading: "INDOOR CLIMATE "
+  - type: custom:bubble-card
+    button_type: state
+    name: Büro
+    card_type: button
+    entity: sensor.buro_climate
+    show_state: false
+    show_attribute: false
+    attribute: friendly_name
+    sub_button:
+      - entity: sensor.tempi_buro_temperature
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_buro_humidity
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_buro_battery
+        show_state: true
+        show_background: false
+    styles: |-
+      .bubble-icon {
+        color: ${hass.states['sensor.buro_climate'].state == 'good' ? 'green' : hass.states['sensor.buro_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+      }
+    card_layout: large
+    show_icon: true
+    scrolling_effect: true
+  - type: custom:bubble-card
+    button_type: state
+    name: Schlafzimmer
+    card_type: button
+    entity: sensor.schlafzimmer_climate
+    show_state: false
+    show_attribute: false
+    attribute: friendly_name
+    sub_button:
+      - entity: sensor.tempi_schlafzimmer_temperature
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_schlafzimmer_humidity
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_schlafzimmer_battery
+        show_state: true
+        show_background: false
+    styles: |-
+      .bubble-icon {
+        color: ${hass.states['sensor.schlafzimmer_climate'].state == 'good' ? 'green' : hass.states['sensor.schlafzimmer_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+      }
+    card_layout: large
+    show_icon: true
+    scrolling_effect: true
+  - type: custom:bubble-card
+    button_type: state
+    name: Kinderzimmer
+    card_type: button
+    entity: sensor.kind_climate
+    show_state: false
+    show_attribute: false
+    attribute: friendly_name
+    sub_button:
+      - entity: sensor.tempi_kind_temperature
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_kind_humidity
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_kind_battery
+        show_state: true
+        show_background: false
+    styles: |-
+      .bubble-icon {
+        color: ${hass.states['sensor.kind_climate'].state == 'good' ? 'green' : hass.states['sensor.kind_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+      }
+    card_layout: large
+    show_icon: true
+    scrolling_effect: true
+  - type: custom:bubble-card
+    button_type: state
+    name: Waschraum
+    card_type: button
+    entity: sensor.waschraum_climate
+    show_state: false
+    show_attribute: false
+    attribute: friendly_name
+    sub_button:
+      - entity: sensor.tempi_waschraum_temperature
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_waschraum_humidity
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_waschraum_battery
+        show_state: true
+        show_background: false
+    styles: |-
+      .bubble-icon {
+        color: ${hass.states['sensor.waschraum_climate'].state == 'good' ? 'green' : hass.states['sensor.waschraum_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+      }
+    card_layout: large
+    show_icon: true
+    scrolling_effect: true
+  - type: custom:bubble-card
+    button_type: state
+    name: Studio
+    card_type: button
+    entity: sensor.studio_climate
+    show_state: false
+    show_attribute: false
+    attribute: friendly_name
+    sub_button:
+      - entity: sensor.tempi_studio_temperature
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_studio_humidity
+        show_background: false
+        show_state: true
+      - entity: sensor.tempi_studio_battery
+        show_state: true
+        show_background: false
+    styles: |-
+      .bubble-icon {
+        color: ${hass.states['sensor.studio_climate'].state == 'good' ? 'green' : hass.states['sensor.studio_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+      }
+    card_layout: large
+    show_icon: true
+    scrolling_effect: true
