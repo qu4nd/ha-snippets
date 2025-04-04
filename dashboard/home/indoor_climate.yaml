@@ -301,69 +301,61 @@ cards:
     icon: mdi:home-roof
     heading: Studio
     heading_style: subtitle
+    badges:
+      - type: entity
+        show_state: true
+        show_icon: true
+        entity: sensor.tempi_studio_battery
   - type: custom:stack-in-card
     mode: horizontal
     cards:
       - type: custom:mushroom-entity-card
-        entity: sensor.echo_dot_xy_temperature
+        entity: sensor.studio_climate
         primary_info: none
         icon_color: green
         icon: mdi:emoticon-happy
         secondary_info: none
         visibility:
-          - condition: numeric_state
-            entity: sensor.echo_dot_xy_temperature
-            above: 17.9
-            below: 21
+          - condition: state
+            entity: sensor.studio_climate
+            state: good
         card_mod:
           style: |
             ha-card {
             border: none;
             }
       - type: custom:mushroom-entity-card
-        entity: sensor.echo_dot_xy_temperature
+        entity: sensor.tempi_studio_temperature
         primary_info: none
         icon_color: amber
         icon: mdi:emoticon-neutral-outline
         secondary_info: none
         visibility:
-          - condition: or
-            conditions:
-              - condition: numeric_state
-                entity: sensor.echo_dot_xy_temperature
-                above: 16.9
-                below: 18
-              - condition: numeric_state
-                entity: sensor.echo_dot_xy_temperature
-                above: 20.9
-                below: 23
+          - condition: state
+            entity: sensor.studio_climate
+            state: medium
         card_mod:
           style: |
             ha-card {
             border: none;
             }
       - type: custom:mushroom-entity-card
-        entity: sensor.echo_dot_xy_temperature
+        entity: sensor.tempi_studio_temperature
         primary_info: none
         icon_color: deep-orange
         icon: mdi:emoticon-sad-outline
         secondary_info: none
         visibility:
-          - condition: or
-            conditions:
-              - condition: numeric_state
-                entity: sensor.echo_dot_xy_temperature
-                below: 17
-              - condition: numeric_state
-                entity: sensor.echo_dot_xy_temperature
-                above: 22.9
+          - condition: state
+            entity: sensor.studio_climate
+            state: bad
         card_mod:
           style: |
             ha-card {
             border: none;
             }
       - type: custom:mushroom-entity-card
-        entity: sensor.echo_dot_xy_temperature
+        entity: sensor.tempi_studio_temperature
         primary_info: state
         secondary_info: none
         card_mod:
@@ -371,14 +363,10 @@ cards:
             ha-card {
             border: none;
             }
-      - type: button
-        show_name: true
-        show_icon: false
-        name: null
-        tap_action: none
-        color: primary
-        hold_action: none
-        action: none
+      - type: custom:mushroom-entity-card
+        entity: sensor.tempi_studio_humidity
+        primary_info: state
+        secondary_info: none
         card_mod:
           style: |
             ha-card {
