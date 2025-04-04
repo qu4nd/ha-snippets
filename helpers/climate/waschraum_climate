@@ -1,9 +1,9 @@
 {% set T = (states('sensor.tempi_waschraum_temperature') | float(0)) %}
 {% set H = (states('sensor.tempi_waschraum_humidity') | float(0)) %}
 
-{% if 18 <= T <= 23 and 40 <= H <= 60 %}
+{% if 18 <= T <= 23 and 35 <= H <= 60 %}
 good
-{% elif (T > 23 or T < 18) and (H < 40 or H > 60) %}
+{% elif (T > 23 or T < 18) and (H < 35 or H > 60) %}
 bad
 {% else %}
 medium
