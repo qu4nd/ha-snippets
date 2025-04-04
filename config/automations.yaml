@@ -956,8 +956,7 @@
       - device_id: ea5c5e07b2bd2b5a92c25015cddf71bd
         domain: cover
         entity_id: 7c291a12dd0c5be7b582f4c9c96a2edf
-        type: set_position
-        position: 5
+        type: close
       button_any_long_press:
       - action: notify.mobile_app_pixel_8_pro
         metadata: {}
