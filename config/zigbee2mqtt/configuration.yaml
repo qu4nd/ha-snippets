@@ -52,3 +52,6 @@ devices:
     friendly_name: Tradfri Remote
   '0x000d6ffffea4e14b':
     friendly_name: Fyrtur Büro
+    homeassistant:
+      cover:
+        position_closed: 5
