@@ -399,287 +399,387 @@ views:
           - type: heading
             heading_style: title
             heading: 'INDOOR CLIMATE '
-          - type: custom:bubble-card
-            open_action:
-              action: navigate
-              navigation_path: '#sz_climate'
-            hash: '#pop-up-sz'
-            button_type: switch
-            name: Schlafzimmer
-            card_type: button
-            tap_action:
-              action: navigate
-              navigation_path: '#sz_climate'
-            entity: sensor.schlafzimmer_climate
-            show_state: false
-            show_attribute: false
-            attribute: icon
-            button_action:
-              tap_action:
-                action: navigate
-                navigation_path: '#sz_climate'
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-            sub_button:
-              - entity: sensor.tempi_schlafzimmer_battery
+          - type: heading
+            icon: phu:desktop-computer
+            heading_style: subtitle
+            badges:
+              - type: entity
                 show_state: true
-                show_background: false
-                show_name: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.schlafzimmer_climate'].state == 'good' ? 'green' : hass.states['sensor.schlafzimmer_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            card_layout: large
-            double_tap_action:
-              action: none
-            hold_action:
-              action: none
-            grid_options:
-              columns: 6
-              rows: 1
-            show_icon: true
-            scrolling_effect: true
-          - type: vertical-stack
-            cards:
-              - type: custom:bubble-card
-                card_type: pop-up
-                hash: '#sz_climate'
-                button_type: state
-                entity: sensor.schlafzimmer_climate
-                name: Schlafzimmer
-                card_layout: large
-                close_on_click: true
-                show_state: true
-                show_attribute: false
-                force_icon: false
-                show_header: false
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
-                entity: sensor.tempi_schlafzimmer_temperature
-                scrolling_effect: false
-                show_name: false
                 show_icon: true
-                card_layout: large
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
-                entity: sensor.tempi_schlafzimmer_humidity
-                scrolling_effect: false
-                show_name: false
-                card_layout: large
-          - type: custom:bubble-card
-            open_action:
-              action: navigate
-              navigation_path: '#sz_climate'
-            hash: '#pop-up-sz'
-            button_type: switch
-            name: Büro
-            card_type: button
-            tap_action:
-              action: navigate
-              navigation_path: '#b_climate'
-            show_state: false
-            show_attribute: false
-            attribute: icon
-            button_action:
-              tap_action:
-                action: navigate
-                navigation_path: '#b_climate'
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-            sub_button:
-              - entity: sensor.tempi_buro_battery
-                show_state: true
-                show_background: false
-                show_name: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.buro_climate'].state == 'good' ? 'green' : hass.states['sensor.buro_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            entity: sensor.buro_climate
-            scrolling_effect: true
-            show_last_changed: false
-            card_layout: large
-            grid_options:
-              columns: 6
-              rows: 1
-          - type: vertical-stack
+                entity: sensor.tempi_buro_battery
+            heading: Büro
+          - type: custom:stack-in-card
+            mode: horizontal
             cards:
-              - type: custom:bubble-card
-                card_type: pop-up
-                hash: '#b_climate'
-                button_type: state
-                entity: sensor.schlafzimmer_climate
-                name: Schlafzimmer
-                card_layout: large
-                close_on_click: true
-                show_state: true
-                show_attribute: false
-                force_icon: false
-                show_header: false
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
+              - type: custom:mushroom-entity-card
+                entity: sensor.buro_climate
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.buro_climate
+                    state: good
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
                 entity: sensor.tempi_buro_temperature
-                scrolling_effect: false
-                show_name: false
-                show_icon: true
-                card_layout: large
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.buro_climate
+                    state: medium
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_buro_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.buro_climate
+                    state: bad
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_buro_temperature
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
                 entity: sensor.tempi_buro_humidity
-                scrolling_effect: false
-                show_name: false
-                card_layout: large
-          - type: custom:bubble-card
-            open_action:
-              action: navigate
-              navigation_path: '#sz_climate'
-            hash: '#pop-up-sz'
-            button_type: switch
-            name: Kinderzimmer
-            card_type: button
-            tap_action:
-              action: navigate
-              navigation_path: '#kz_climate'
-            show_state: false
-            show_attribute: false
-            attribute: icon
-            button_action:
-              tap_action:
-                action: navigate
-                navigation_path: '#kz_climate'
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-            sub_button:
-              - entity: sensor.tempi_kind_battery
-                show_state: true
-                show_background: false
-                show_name: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.kind_climate'].state == 'good' ? 'green' : hass.states['sensor.kind_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            entity: sensor.kind_climate
-            scrolling_effect: true
-            show_last_changed: false
-            card_layout: large
-            double_tap_action:
-              action: none
-            hold_action:
-              action: none
-            grid_options:
-              columns: 6
-              rows: 1
-            show_icon: true
-          - type: vertical-stack
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+          - type: heading
+            icon: mdi:bed
+            heading: Schlafzimmer
+            heading_style: subtitle
+            badges:
+              - type: entity
+                entity: sensor.tempi_schlafzimmer_battery
+          - type: custom:stack-in-card
+            mode: horizontal
             cards:
-              - type: custom:bubble-card
-                card_type: pop-up
-                hash: '#kz_climate'
-                button_type: state
+              - type: custom:mushroom-entity-card
                 entity: sensor.schlafzimmer_climate
-                name: Schlafzimmer
-                card_layout: large
-                close_on_click: true
-                show_state: true
-                show_attribute: false
-                force_icon: false
-                show_header: false
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.schlafzimmer_climate
+                    state: good
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_temperature
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.schlafzimmer_climate
+                    state: medium
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.schlafzimmer_climate
+                    state: bad
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_temperature
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_schlafzimmer_humidity
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+          - type: heading
+            icon: mdi:teddy-bear
+            heading: Kinderzimmer
+            heading_style: subtitle
+            badges:
+              - type: entity
+                entity: sensor.tempi_kind_battery
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.kind_climate
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.kind_climate
+                    state: good
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
                 entity: sensor.tempi_kind_temperature
-                scrolling_effect: false
-                show_name: false
-                show_icon: true
-                card_layout: large
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.kind_climate
+                    state: medium
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_kind_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.kind_climate
+                    state: bad
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_kind_temperature
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
                 entity: sensor.tempi_kind_humidity
-                scrolling_effect: false
-                show_name: false
-                card_layout: large
-          - type: custom:bubble-card
-            open_action:
-              action: navigate
-              navigation_path: '#sz_climate'
-            hash: '#pop-up-sz'
-            button_type: switch
-            name: Waschraum
-            card_type: button
-            tap_action:
-              action: navigate
-              navigation_path: '#wr_climate'
-            show_state: false
-            show_attribute: false
-            attribute: icon
-            button_action:
-              tap_action:
-                action: navigate
-                navigation_path: '#wr_climate'
-              double_tap_action:
-                action: none
-              hold_action:
-                action: none
-            sub_button:
-              - entity: sensor.tempi_waschraum_battery
-                show_state: true
-                show_background: false
-                show_name: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.waschraum_climate'].state == 'good' ? 'green' : hass.states['sensor.waschraum_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            entity: sensor.waschraum_climate
-            scrolling_effect: true
-            show_last_changed: false
-            card_layout: large
-            double_tap_action:
-              action: none
-            hold_action:
-              action: none
-            grid_options:
-              columns: 6
-              rows: 1
-          - type: vertical-stack
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+          - type: heading
+            icon: mdi:washing-machine
+            heading: Waschraum
+            heading_style: subtitle
+            badges:
+              - type: entity
+                entity: sensor.tempi_waschraum_battery
+          - type: custom:stack-in-card
+            mode: horizontal
             cards:
-              - type: custom:bubble-card
-                card_type: pop-up
-                hash: '#wr_climate'
-                button_type: state
-                entity: sensor.schlafzimmer_climate
-                name: Schlafzimmer
-                card_layout: large
-                close_on_click: true
-                show_state: true
-                show_attribute: false
-                force_icon: false
-                show_header: false
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
+              - type: custom:mushroom-entity-card
+                entity: sensor.waschraum_climate
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.waschraum_climate
+                    state: good
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
                 entity: sensor.tempi_waschraum_temperature
-                scrolling_effect: false
-                show_name: false
-                show_icon: true
-                card_layout: large
-              - type: custom:bubble-card
-                card_type: button
-                button_type: state
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.waschraum_climate
+                    state: medium
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_waschraum_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: state
+                    entity: sensor.waschraum_climate
+                    state: bad
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.tempi_waschraum_temperature
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
                 entity: sensor.tempi_waschraum_humidity
-                scrolling_effect: false
-                show_name: false
-                card_layout: large
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+          - type: heading
+            icon: mdi:home-roof
+            heading: Studio
+            heading_style: subtitle
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: none
+                icon_color: green
+                icon: mdi:emoticon-happy
+                secondary_info: none
+                visibility:
+                  - condition: numeric_state
+                    entity: sensor.echo_dot_xy_temperature
+                    above: 17.9
+                    below: 21
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: none
+                icon_color: amber
+                icon: mdi:emoticon-neutral-outline
+                secondary_info: none
+                visibility:
+                  - condition: or
+                    conditions:
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        above: 16.9
+                        below: 18
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        above: 20.9
+                        below: 23
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: none
+                icon_color: deep-orange
+                icon: mdi:emoticon-sad-outline
+                secondary_info: none
+                visibility:
+                  - condition: or
+                    conditions:
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        below: 17
+                      - condition: numeric_state
+                        entity: sensor.echo_dot_xy_temperature
+                        above: 22.9
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: custom:mushroom-entity-card
+                entity: sensor.echo_dot_xy_temperature
+                primary_info: state
+                secondary_info: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
+              - type: button
+                show_name: true
+                show_icon: false
+                name: null
+                tap_action: none
+                color: primary
+                hold_action: none
+                action: none
+                card_mod:
+                  style: |
+                    ha-card {
+                    border: none;
+                    }
       - type: grid
         cards:
           - type: heading
@@ -762,7 +862,7 @@ views:
             visibility:
               - condition: state
                 entity: camera.e1_outdoor_clear
-                state: clear
+                state_not: unavailable
             camera_image: camera.e1_outdoor_fluent
           - type: tile
             entity: camera.nest_cam_kuche
@@ -1358,15 +1458,15 @@ views:
           - type: tile
             entity: sensor.hausnummer_rssi
             name: Hausnummer
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.hausnummer_rssi
                 below: -69
-            features_position: bottom
-            vertical: false
           - type: tile
             entity: sensor.vitrine_rssi
             name: Vitrine
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.vitrine_rssi
@@ -1374,6 +1474,7 @@ views:
           - type: tile
             entity: sensor.beet_hinten_rssi
             name: Beet
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.beet_hinten_rssi
@@ -1381,6 +1482,7 @@ views:
           - type: tile
             entity: sensor.rollo_kuche_rssi
             name: Küche
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_kuche_rssi
@@ -1388,6 +1490,7 @@ views:
           - type: tile
             entity: sensor.rollo_wohnzimmer_links_rssi
             name: WZ links
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_wohnzimmer_links_rssi
@@ -1395,6 +1498,7 @@ views:
           - type: tile
             entity: sensor.rollo_wohnzimmer_rechts_rssi
             name: WZ rechts
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_wohnzimmer_rechts_rssi
@@ -1402,6 +1506,7 @@ views:
           - type: tile
             entity: sensor.rollo_badezimmer_rssi
             name: Bad
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_badezimmer_rssi
@@ -1409,6 +1514,7 @@ views:
           - type: tile
             entity: sensor.rollo_buro_rssi
             name: Büro
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_buro_rssi
@@ -1416,6 +1522,7 @@ views:
           - type: tile
             entity: sensor.rollo_ankleide_rssi
             name: Ankleide
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_ankleide_rssi
@@ -1423,6 +1530,7 @@ views:
           - type: tile
             entity: sensor.rollo_schlafzimmer_rssi
             name: SZ
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_schlafzimmer_rssi
@@ -1430,6 +1538,7 @@ views:
           - type: tile
             entity: sensor.rollo_kinderzimmer_rssi
             name: KZ
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_kinderzimmer_rssi
@@ -1437,6 +1546,7 @@ views:
           - type: tile
             entity: sensor.rollo_studio_rssi
             name: Studio
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.rollo_dachgeschoss_rssi
@@ -1444,6 +1554,7 @@ views:
           - type: tile
             entity: sensor.schreibtisch_signal_strength
             name: Schreibtisch
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.schreibtisch_signal_strength
@@ -1451,6 +1562,7 @@ views:
           - type: tile
             entity: sensor.korblampe_signal_strength
             name: Korblampe
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.korblampe_signal_strength
@@ -1458,6 +1570,7 @@ views:
           - type: tile
             entity: sensor.bett_emilia_signal_strength
             name: Bett
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.bett_emilia_signal_strength
@@ -1465,6 +1578,7 @@ views:
           - type: tile
             entity: sensor.schlafzimmer_links_signal_strength
             name: SZ links
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.schlafzimmer_links_signal_strength
@@ -1472,12 +1586,14 @@ views:
           - type: tile
             entity: sensor.schlafzimmer_rechts_signal_strength
             name: SZ rechts
+            color: accent
             visibility:
               - condition: numeric_state
                 entity: sensor.schlafzimmer_rechts_signal_strength
                 below: -69
           - type: tile
             name: Gen 1
+            color: accent
             visibility:
               - condition: state
                 entity: sensor.generic_1_signal_strength
@@ -1489,6 +1605,7 @@ views:
           - type: tile
             entity: sensor.generic_2_signal_strength
             name: Gen 2
+            color: accent
             visibility:
               - condition: state
                 entity: sensor.generic_2_signal_strength
@@ -1498,6 +1615,7 @@ views:
                 below: -69
           - type: tile
             name: Gen 3
+            color: accent
             visibility:
               - condition: state
                 entity: sensor.generic_3_signal_strength
@@ -1509,6 +1627,7 @@ views:
           - type: tile
             entity: sensor.m_rssi
             name: M
+            color: accent
             visibility:
               - condition: state
                 entity: sensor.m_rssi
@@ -1519,6 +1638,7 @@ views:
           - type: tile
             entity: sensor.e1_outdoor_wi_fi_signal
             name: E1
+            color: accent
             visibility:
               - condition: state
                 entity: sensor.e1_outdoor_wi_fi_signal
