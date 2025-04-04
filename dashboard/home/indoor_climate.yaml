@@ -64,7 +64,6 @@ cards:
         entity: sensor.tempi_buro_temperature
         primary_info: state
         secondary_info: none
-        icon_color: primary
         card_mod:
           style: |
             ha-card {
@@ -74,7 +73,6 @@ cards:
         entity: sensor.tempi_buro_humidity
         primary_info: state
         secondary_info: none
-        icon_color: primary
         card_mod:
           style: |
             ha-card {
@@ -139,7 +137,6 @@ cards:
         entity: sensor.tempi_schlafzimmer_temperature
         primary_info: state
         secondary_info: none
-        icon_color: primary
         card_mod:
           style: |
             ha-card {
@@ -149,7 +146,6 @@ cards:
         entity: sensor.tempi_schlafzimmer_humidity
         primary_info: state
         secondary_info: none
-        icon_color: primary
         card_mod:
           style: |
             ha-card {
@@ -214,7 +210,6 @@ cards:
         entity: sensor.tempi_kind_temperature
         primary_info: state
         secondary_info: none
-        icon_color: primary
         card_mod:
           style: |
             ha-card {
@@ -223,7 +218,6 @@ cards:
       - type: custom:mushroom-entity-card
         entity: sensor.tempi_kind_humidity
         primary_info: state
-        icon_color: primary
         secondary_info: none
         card_mod:
           style: |
@@ -288,7 +282,6 @@ cards:
       - type: custom:mushroom-entity-card
         entity: sensor.tempi_waschraum_temperature
         primary_info: state
-        icon_color: primary
         secondary_info: none
         card_mod:
           style: |
@@ -298,7 +291,6 @@ cards:
       - type: custom:mushroom-entity-card
         entity: sensor.tempi_waschraum_humidity
         primary_info: state
-        icon_color: primary
         secondary_info: none
         card_mod:
           style: |
@@ -307,7 +299,7 @@ cards:
             }
   - type: heading
     icon: mdi:home-roof
-    heading: Dachstudio
+    heading: Studio
     heading_style: subtitle
   - type: custom:stack-in-card
     mode: horizontal
@@ -374,7 +366,6 @@ cards:
         entity: sensor.echo_dot_xy_temperature
         primary_info: state
         secondary_info: none
-        icon_color: primary
         card_mod:
           style: |
             ha-card {
