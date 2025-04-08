@@ -15,6 +15,13 @@ views:
             heading_style: title
             icon: ''
             badges: []
+          - type: markdown
+            content: '**{{ states(''sensor.regenradar'') }}**'
+            title: Regenankündigung
+            visibility:
+              - condition: numeric_state
+                entity: sensor.rrrainin120min
+                above: 0
           - show_current: true
             show_forecast: true
             type: weather-forecast
@@ -286,7 +293,8 @@ views:
             icon_tap_action:
               action: more-info
             name: Landroid
-            color: accent
+            color: primary
+            features_position: bottom
           - type: tile
             icon: mdi:power-socket-de
             entity: switch.steckdose_2
@@ -309,6 +317,15 @@ views:
             icon: mdi:home
             heading_style: subtitle
             heading: Indoor
+          - type: tile
+            icon: phu:socket-eu
+            tap_action:
+              action: toggle
+            features_position: bottom
+            vertical: false
+            entity: switch.inspelning_treppe
+            name: Treppe EG
+            color: primary
           - type: tile
             icon: mdi:desk
             vertical: false
@@ -399,131 +416,114 @@ views:
           - type: heading
             heading_style: title
             heading: 'INDOOR CLIMATE '
-          - type: custom:bubble-card
-            button_type: state
-            name: Büro
-            card_type: button
-            entity: sensor.buro_climate
-            show_state: false
-            show_attribute: false
-            attribute: friendly_name
-            sub_button:
-              - entity: sensor.tempi_buro_temperature
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_buro_humidity
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_buro_battery
-                show_state: true
-                show_background: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.buro_climate'].state == 'good' ? 'green' : hass.states['sensor.buro_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            card_layout: large
-            show_icon: true
-            scrolling_effect: true
-          - type: custom:bubble-card
-            button_type: state
-            name: Schlafzimmer
-            card_type: button
-            entity: sensor.schlafzimmer_climate
-            show_state: false
-            show_attribute: false
-            attribute: friendly_name
-            sub_button:
-              - entity: sensor.tempi_schlafzimmer_temperature
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_schlafzimmer_humidity
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_schlafzimmer_battery
-                show_state: true
-                show_background: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.schlafzimmer_climate'].state == 'good' ? 'green' : hass.states['sensor.schlafzimmer_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            card_layout: large
-            show_icon: true
-            scrolling_effect: true
-          - type: custom:bubble-card
-            button_type: state
-            name: Kinderzimmer
-            card_type: button
-            entity: sensor.kind_climate
-            show_state: false
-            show_attribute: false
-            attribute: friendly_name
-            sub_button:
-              - entity: sensor.tempi_kind_temperature
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_kind_humidity
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_kind_battery
-                show_state: true
-                show_background: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.kind_climate'].state == 'good' ? 'green' : hass.states['sensor.kind_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            card_layout: large
-            show_icon: true
-            scrolling_effect: true
-          - type: custom:bubble-card
-            button_type: state
-            name: Waschraum
-            card_type: button
-            entity: sensor.waschraum_climate
-            show_state: false
-            show_attribute: false
-            attribute: friendly_name
-            sub_button:
-              - entity: sensor.tempi_waschraum_temperature
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_waschraum_humidity
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_waschraum_battery
-                show_state: true
-                show_background: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.waschraum_climate'].state == 'good' ? 'green' : hass.states['sensor.waschraum_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            card_layout: large
-            show_icon: true
-            scrolling_effect: true
-          - type: custom:bubble-card
-            button_type: state
-            name: Studio
-            card_type: button
-            entity: sensor.studio_climate
-            show_state: false
-            show_attribute: false
-            attribute: friendly_name
-            sub_button:
-              - entity: sensor.tempi_studio_temperature
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_studio_humidity
-                show_background: false
-                show_state: true
-              - entity: sensor.tempi_studio_battery
-                show_state: true
-                show_background: false
-            styles: |-
-              .bubble-icon {
-                color: ${hass.states['sensor.studio_climate'].state == 'good' ? 'green' : hass.states['sensor.studio_climate'].state == 'medium' ? 'orange' : 'red'} !important;
-              }
-            card_layout: large
-            show_icon: true
-            scrolling_effect: true
+          - type: entities
+            show_header_toggle: false
+            entities:
+              - entity: sensor.buro_climate
+                type: custom:multiple-entity-row
+                name: Büro
+                show_state: false
+                card_mod:
+                  style: |
+                    :host {
+                    --paper-item-icon-color: 
+                    {% if is_state('sensor.buro_climate', 'good') %}
+                      green;
+                    {% elif is_state('sensor.buro_climate', 'medium') %}
+                      orange;
+                    {% else %}
+                      red;
+                    {% endif %}
+                    }
+                entities:
+                  - entity: sensor.tempi_buro_humidity
+                    name: false
+                  - entity: sensor.tempi_buro_temperature
+                    name: false
+              - entity: sensor.schlafzimmer_climate
+                type: custom:multiple-entity-row
+                name: Schlafzimmer
+                show_state: false
+                card_mod:
+                  style: |
+                    :host {
+                    --paper-item-icon-color: 
+                    {% if is_state('sensor.schlafzimmer_climate', 'good') %}
+                      green;
+                    {% elif is_state('sensor.schlafzimmer_climate', 'medium') %}
+                      orange;
+                    {% else %}
+                      red;
+                    {% endif %}
+                    }
+                entities:
+                  - entity: sensor.tempi_schlafzimmer_humidity
+                    name: false
+                  - entity: sensor.tempi_schlafzimmer_temperature
+                    name: false
+              - entity: sensor.kind_climate
+                type: custom:multiple-entity-row
+                name: Kind
+                show_state: false
+                card_mod:
+                  style: |
+                    :host {
+                    --paper-item-icon-color: 
+                    {% if is_state('sensor.kind_climate', 'good') %}
+                      green;
+                    {% elif is_state('sensor.kind_climate', 'medium') %}
+                      orange;
+                    {% else %}
+                      red;
+                    {% endif %}
+                    }
+                entities:
+                  - entity: sensor.tempi_kind_humidity
+                    name: false
+                  - entity: sensor.tempi_kind_temperature
+                    name: false
+              - entity: sensor.studio_climate
+                type: custom:multiple-entity-row
+                name: Studio
+                show_state: false
+                card_mod:
+                  style: |
+                    :host {
+                    --paper-item-icon-color: 
+                    {% if is_state('sensor.studio_climate', 'good') %}
+                      green;
+                    {% elif is_state('sensor.studio_climate', 'medium') %}
+                      orange;
+                    {% else %}
+                      red;
+                    {% endif %}
+                    }
+                entities:
+                  - entity: sensor.tempi_studio_humidity
+                    name: false
+                  - entity: sensor.tempi_studio_temperature
+                    name: false
+              - entity: sensor.waschraum_climate
+                type: custom:multiple-entity-row
+                name: Waschraum
+                show_state: false
+                card_mod:
+                  style: |
+                    :host {
+                    --paper-item-icon-color: 
+                    {% if is_state('sensor.waschraum_climate', 'good') %}
+                      green;
+                    {% elif is_state('sensor.waschraum_climate', 'medium') %}
+                      orange;
+                    {% else %}
+                      red;
+                    {% endif %}
+                    }
+                entities:
+                  - entity: sensor.tempi_waschraum_humidity
+                    name: false
+                  - entity: sensor.tempi_waschraum_temperature
+                    name: false
       - type: grid
         cards:
           - type: heading
@@ -594,51 +594,6 @@ views:
       - type: grid
         cards:
           - type: heading
-            heading_style: title
-            heading: CAMERAS
-          - show_state: true
-            show_name: true
-            camera_view: live
-            type: picture-entity
-            image: https://demo.home-assistant.io/stub_config/bedroom.png
-            entity: camera.e1_outdoor_clear
-            name: Zufahrt Garage
-            visibility:
-              - condition: state
-                entity: camera.e1_outdoor_clear
-                state_not: unavailable
-            camera_image: camera.e1_outdoor_fluent
-          - type: tile
-            entity: camera.nest_cam_kuche
-            show_entity_picture: false
-            hide_state: false
-            state_content:
-              - brand
-              - model_name
-            color: primary
-            features_position: bottom
-            vertical: true
-            grid_options:
-              columns: 6
-              rows: 2
-            name: Küche
-            icon: phu:mini-camera
-          - type: tile
-            entity: camera.haustur
-            show_entity_picture: false
-            color: primary
-            state_content:
-              - brand
-              - model_name
-            features_position: bottom
-            vertical: true
-            grid_options:
-              columns: 6
-              rows: 2
-            icon: phu:arlo-video-doorbell
-      - type: grid
-        cards:
-          - type: heading
             heading: WINDOWS
           - type: tile
             icon: mdi:door-sliding
@@ -654,17 +609,6 @@ views:
               - last-changed
             name: 'Terrasse '
           - type: tile
-            entity: sensor.tur_terrasse_battery
-            show_entity_picture: false
-            visibility:
-              - condition: numeric_state
-                entity: sensor.tur_terrasse_battery
-                below: 15
-            name: Terrasse
-            state_content:
-              - state
-              - last_updated
-          - type: tile
             icon: ''
             color: primary
             entity: binary_sensor.fenster_kuche_window
@@ -674,19 +618,6 @@ views:
             state_content:
               - state
               - last_changed
-          - type: tile
-            entity: sensor.fenster_kuche_battery
-            show_entity_picture: false
-            visibility:
-              - condition: numeric_state
-                entity: sensor.fenster_kuche_battery
-                below: 15
-            hide_state: false
-            vertical: false
-            name: Küche
-            state_content:
-              - state
-              - last_updated
           - type: tile
             icon: ''
             color: primary
@@ -699,20 +630,6 @@ views:
             vertical: false
             name: Bad
           - type: tile
-            entity: sensor.fenster_bad_battery
-            show_entity_picture: false
-            visibility:
-              - condition: numeric_state
-                entity: sensor.fenster_bad_battery
-                below: 15
-            hide_state: false
-            vertical: false
-            state_content:
-              - state
-              - last_updated
-            features_position: bottom
-            name: Bad
-          - type: tile
             icon: ''
             color: primary
             show_entity_picture: false
@@ -721,17 +638,6 @@ views:
               - last-changed
             entity: binary_sensor.fenster_ankleide_window
             name: 'Ankleide '
-          - type: tile
-            entity: sensor.fenster_ankleide_battery
-            show_entity_picture: false
-            visibility:
-              - condition: numeric_state
-                entity: sensor.fenster_ankleide_battery
-                below: 15
-            name: Ankleide
-            state_content:
-              - state
-              - last_updated
           - type: tile
             icon: ''
             color: primary
@@ -742,17 +648,6 @@ views:
             entity: binary_sensor.fenster_schlafzimmer_window
             name: Schlafzimmer
           - type: tile
-            entity: sensor.fenster_schlafzimmer_battery
-            show_entity_picture: false
-            visibility:
-              - condition: numeric_state
-                entity: sensor.fenster_schlafzimmer_battery
-                below: 15
-            name: Schlafzimmer
-            state_content:
-              - state
-              - last_updated
-          - type: tile
             icon: ''
             color: primary
             show_entity_picture: false
@@ -762,16 +657,16 @@ views:
             entity: binary_sensor.fenster_kinderzimmer_window
             name: Kinderzimmer
           - type: tile
-            entity: sensor.fenster_kinderzimmer_battery
+            icon: ''
+            color: primary
             show_entity_picture: false
-            visibility:
-              - condition: numeric_state
-                entity: sensor.fenster_kinderzimmer_battery
-                below: 15
-            name: Kinderzimmer
             state_content:
               - state
-              - last_updated
+              - last-changed
+            features_position: bottom
+            vertical: false
+            entity: binary_sensor.fenster_waschraum_contact
+            name: Waschraum
       - type: grid
         cards:
           - type: heading
@@ -1192,7 +1087,106 @@ views:
               columns: 4
               rows: 2
             min: 30
-        column_span: 2
+        column_span: 1
+      - type: grid
+        cards:
+          - type: heading
+            heading: LOW BATTERIES
+            heading_style: title
+            icon: mdi:battery-alert
+          - type: tile
+            entity: sensor.tempi_buro_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tempi_buro_battery
+                below: 20
+          - type: tile
+            entity: sensor.tempi_studio_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tempi_studio_battery
+                below: 20
+          - type: tile
+            entity: sensor.tempi_serverschrank_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tempi_serverschrank_battery
+                below: 20
+          - type: tile
+            entity: sensor.tempi_waschraum_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tempi_waschraum_battery
+                below: 20
+          - type: tile
+            entity: sensor.tempi_kind_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tempi_kind_battery
+                below: 20
+          - type: tile
+            entity: sensor.tempi_schlafzimmer_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tempi_schlafzimmer_battery
+                below: 20
+          - type: tile
+            entity: sensor.fenster_ankleide_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_ankleide_battery
+                below: 20
+          - type: tile
+            entity: sensor.fenster_bad_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_bad_battery
+                below: 20
+          - type: tile
+            entity: sensor.fenster_kinderzimmer_battery
+            features_position: bottom
+            vertical: false
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_kinderzimmer_battery
+                below: 20
+          - type: tile
+            entity: sensor.fenster_kuche_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_kuche_battery
+                below: 20
+          - type: tile
+            entity: sensor.fenster_schlafzimmer_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_schlafzimmer_battery
+                below: 20
+          - type: tile
+            entity: sensor.fenster_waschraum_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fenster_waschraum_battery
+                below: 20
+          - type: tile
+            entity: sensor.fyrtur_buro_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.fyrtur_buro_battery
+                below: 20
+          - type: tile
+            entity: sensor.tradfri_remote_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tradfri_remote_battery
+                below: 20
+          - type: tile
+            entity: sensor.tur_terrasse_battery
+            visibility:
+              - condition: numeric_state
+                entity: sensor.tur_terrasse_battery
+                below: 20
+        column_span: 1
       - type: grid
         cards:
           - type: heading
@@ -1390,7 +1384,7 @@ views:
               - condition: numeric_state
                 entity: sensor.e1_outdoor_wi_fi_signal
                 below: 2
-        column_span: 2
+        column_span: 1
       - type: grid
         cards:
           - type: heading
@@ -1579,10 +1573,6 @@ views:
                 tap_action:
                   action: more-info
           - type: tile
-            entity: sensor.tempi_serverschrank_battery
-            features_position: bottom
-            vertical: false
-          - type: tile
             entity: sensor.system_monitor_disk_free
             name: Free
           - type: tile
@@ -1662,10 +1652,189 @@ views:
           - condition: state
             entity: sensor.rrraintext
             state: unknown
+  - type: sections
+    max_columns: 4
+    title: Cameras
+    path: cameras
+    icon: mdi:cctv
+    sections:
+      - type: grid
+        cards:
+          - show_state: true
+            show_name: true
+            camera_view: auto
+            type: picture-entity
+            image: https://demo.home-assistant.io/stub_config/bedroom.png
+            entity: camera.e1_outdoor_clear
+            name: Zufahrt Garage
+            visibility:
+              - condition: state
+                entity: camera.e1_outdoor_clear
+                state_not: unavailable
+            camera_image: camera.e1_outdoor_fluent
+            aspect_ratio: '1'
+          - type: tile
+            entity: camera.nest_cam_kuche
+            show_entity_picture: false
+            hide_state: false
+            state_content:
+              - brand
+              - model_name
+            color: primary
+            features_position: bottom
+            vertical: true
+            grid_options:
+              columns: 6
+              rows: 2
+            name: Küche
+            icon: phu:mini-camera
+          - type: tile
+            entity: camera.haustur
+            show_entity_picture: false
+            color: primary
+            state_content:
+              - brand
+              - model_name
+            features_position: bottom
+            vertical: true
+            grid_options:
+              columns: 6
+              rows: 2
+            icon: phu:arlo-video-doorbell
   - title: under-construction
     icon: mdi:account-hard-hat
     cards: []
     visible:
       - user: 64d0a975dc4a4bbe9e3cffc587ca23bf
     type: sections
-    sections: []
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading_style: title
+            heading: 'INDOOR CLIMATE '
+          - type: custom:bubble-card
+            button_type: state
+            name: Büro
+            card_type: button
+            entity: sensor.buro_climate
+            show_state: false
+            show_attribute: false
+            attribute: friendly_name
+            sub_button:
+              - entity: sensor.tempi_buro_temperature
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_buro_humidity
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_buro_battery
+                show_state: true
+                show_background: false
+            styles: |-
+              .bubble-icon {
+                color: ${hass.states['sensor.buro_climate'].state == 'good' ? 'green' : hass.states['sensor.buro_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+              }
+            card_layout: large
+            show_icon: true
+            scrolling_effect: true
+          - type: custom:bubble-card
+            button_type: state
+            name: Schlafzimmer
+            card_type: button
+            entity: sensor.schlafzimmer_climate
+            show_state: false
+            show_attribute: false
+            attribute: friendly_name
+            sub_button:
+              - entity: sensor.tempi_schlafzimmer_temperature
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_schlafzimmer_humidity
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_schlafzimmer_battery
+                show_state: true
+                show_background: false
+            styles: |-
+              .bubble-icon {
+                color: ${hass.states['sensor.schlafzimmer_climate'].state == 'good' ? 'green' : hass.states['sensor.schlafzimmer_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+              }
+            card_layout: large
+            show_icon: true
+            scrolling_effect: true
+          - type: custom:bubble-card
+            button_type: state
+            name: Kinderzimmer
+            card_type: button
+            entity: sensor.kind_climate
+            show_state: false
+            show_attribute: false
+            attribute: friendly_name
+            sub_button:
+              - entity: sensor.tempi_kind_temperature
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_kind_humidity
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_kind_battery
+                show_state: true
+                show_background: false
+            styles: |-
+              .bubble-icon {
+                color: ${hass.states['sensor.kind_climate'].state == 'good' ? 'green' : hass.states['sensor.kind_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+              }
+            card_layout: large
+            show_icon: true
+            scrolling_effect: true
+          - type: custom:bubble-card
+            button_type: state
+            name: Waschraum
+            card_type: button
+            entity: sensor.waschraum_climate
+            show_state: false
+            show_attribute: false
+            attribute: friendly_name
+            sub_button:
+              - entity: sensor.tempi_waschraum_temperature
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_waschraum_humidity
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_waschraum_battery
+                show_state: true
+                show_background: false
+            styles: |-
+              .bubble-icon {
+                color: ${hass.states['sensor.waschraum_climate'].state == 'good' ? 'green' : hass.states['sensor.waschraum_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+              }
+            card_layout: large
+            show_icon: true
+            scrolling_effect: true
+          - type: custom:bubble-card
+            button_type: state
+            name: Studio
+            card_type: button
+            entity: sensor.studio_climate
+            show_state: false
+            show_attribute: false
+            attribute: friendly_name
+            sub_button:
+              - entity: sensor.tempi_studio_temperature
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_studio_humidity
+                show_background: false
+                show_state: true
+              - entity: sensor.tempi_studio_battery
+                show_state: true
+                show_background: false
+            styles: |-
+              .bubble-icon {
+                color: ${hass.states['sensor.studio_climate'].state == 'good' ? 'green' : hass.states['sensor.studio_climate'].state == 'medium' ? 'orange' : 'red'} !important;
+              }
+            card_layout: large
+            show_icon: true
+            scrolling_effect: true
