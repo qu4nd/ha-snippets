@@ -38,7 +38,7 @@ recorder:
       - sensor.pixel_8_pro_geocoded_location
       - sensor.pixel_4a_geocoded_location
       - update.rollo_buro_firmware_update
-      - sensor.regenradar
+#      - sensor.regenradar
     entity_globs:
       - sensor.helene_wischer_*
       - button.helene_wischer_*
@@ -54,7 +54,7 @@ recorder:
       - sensor.echo_*_next_timer
       - switch.echo_*_do_not_disturb_switch
       - binary_sensor.e1_outdoor_*
-      - sensor.rrr*
+#      - sensor.rrr*
 
 # Telegram Bot config
 telegram_bot:
@@ -83,31 +83,6 @@ emulated_hue:
   listen_port: 80
   expose_by_default: false
   entities:
-    cover.fyrtur_buro:
-      name: "Jalousie Büro"
+    light.mijia_desk_lamp_1s:
+      name: "Schreibtischlampe"
       hidden: false
-      
-#DEPRECATED
-# Abfallkalender config
-#waste_collection_schedule:
-#  sources:
-#    - name: regioentsorgung_de
-#      args:
-#        city: Herzogenrath
-#        street: Römerstraße
-#        house_number: 135
-#      customize:
-#        - type: Bioabfall 2-Rad Behaelter 02-woechentl.
-#          alias: Biotonne
-#        - type: Restabfall 2-Rad Behaelter 02-woechentl.
-#          alias: Restmüll
-#        - type: Papierabfuhr 2-Rad Behaelter 04-woechentl.
-#          alias: Papiertonne
-#        - type: Gruenschnitt-Strassensammlung
-#          show: false
-
-# self created entities
-#input_boolean:
-#  alarmactive:
-#    name: alarm active
-#    initial: off

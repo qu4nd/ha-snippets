@@ -1,13 +1,3 @@
-#- platform: waste_collection_schedule
-  #name: AbfallNotify
-#  details_format: 'upcoming'
-#  value_template: '{{value.daysTo}}'
-#- platform: template
-#  sensors:
-#    nighttime:
-#      friendly_name: 'Before 8am'
-#      value_template: '{{now().hour < 8}}'     
-
 - platform: rest
   name: regenradar
   scan_interval: 300
