@@ -912,13 +912,18 @@
     entity_id:
     - sensor.rrrainin120min
     above: 0
-  conditions: []
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.fenster_waschraum_contact
+      state: 'on'
   actions:
   - action: notify.mobile_app_pixel_8_pro
     metadata: {}
     data:
       message: '{{ states("sensor.rrraintext") }}'
-      title: Regenwarnung!
+      title: Fenster im Dachgeschoss schließen
   mode: single
 - id: '1743620295942'
   alias: Fenster Bad Notification
@@ -934,11 +939,22 @@
       seconds: 0
   conditions: []
   actions:
-  - action: notify.alexa_media_echo_show_buro
+  - action: notify.alexa_media_echo_show_kuche
     metadata: {}
     data:
       message: '{{ trigger.to_state.attributes.friendly_name }} ist seit 15 Minuten
         geöffnet! Bitte schließen!'
+    enabled: false
+  - action: notify.alexa_media_alarmanlage
+    metadata: {}
+    data:
+      message: Fenster Badezimmer ist seit 15 Minuten geöffnet! Bitte schließen!
+    enabled: false
+  - action: notify.all_telegram
+    metadata: {}
+    data:
+      title: 'Fenster Badezimmer '
+      message: ist seit 15 Minuten geöffnet. Bitte schließen!
   mode: single
 - id: '1743664433379'
   alias: IKEA Tradfri Open Close Button
@@ -962,3 +978,25 @@
         metadata: {}
         data:
           message: LONG PRESS
+- id: '1743973118923'
+  alias: Dachfenster noch geöffnet
+  description: ''
+  triggers:
+  - trigger: time
+    at: '22:00:00'
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: binary_sensor.fenster_waschraum_contact
+      state: 'on'
+  actions:
+  - alias: HA Notification
+    continue_on_error: true
+    metadata: {}
+    data:
+      message: Das Dachfenster ist noch geöffnet!
+      title: Fenster ist geöffnet
+    enabled: true
+    action: notify.notify
+  mode: single
