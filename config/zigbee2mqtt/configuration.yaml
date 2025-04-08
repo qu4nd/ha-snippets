@@ -55,3 +55,11 @@ devices:
     homeassistant:
       cover:
         position_closed: 5
+  '0x00be44fffeab1c6d':
+    friendly_name: Inspelning Treppe
+  '0x00be44fffeac6cb9':
+    friendly_name: 'Inspelning Schlafzimmer '
+  '0x00be44fffeab77d0':
+    friendly_name: Inspelning Studio
+  '0xa4c13865b0a12151':
+    friendly_name: 'Fenster Waschraum '
