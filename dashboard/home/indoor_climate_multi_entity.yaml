@@ -1,0 +1,113 @@
+type: grid
+cards:
+  - type: heading
+    heading_style: title
+    heading: "INDOOR CLIMATE "
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - entity: sensor.buro_climate
+        type: custom:multiple-entity-row
+        name: Büro
+        show_state: false
+        card_mod:
+          style: |
+            :host {
+            --paper-item-icon-color: 
+            {% if is_state('sensor.buro_climate', 'good') %}
+              green;
+            {% elif is_state('sensor.buro_climate', 'medium') %}
+              orange;
+            {% else %}
+              red;
+            {% endif %}
+            }
+        entities:
+          - entity: sensor.tempi_buro_humidity
+            name: false
+          - entity: sensor.tempi_buro_temperature
+            name: false
+      - entity: sensor.schlafzimmer_climate
+        type: custom:multiple-entity-row
+        name: Schlafzimmer
+        show_state: false
+        card_mod:
+          style: |
+            :host {
+            --paper-item-icon-color: 
+            {% if is_state('sensor.schlafzimmer_climate', 'good') %}
+              green;
+            {% elif is_state('sensor.schlafzimmer_climate', 'medium') %}
+              orange;
+            {% else %}
+              red;
+            {% endif %}
+            }
+        entities:
+          - entity: sensor.tempi_schlafzimmer_humidity
+            name: false
+          - entity: sensor.tempi_schlafzimmer_temperature
+            name: false
+      - entity: sensor.kind_climate
+        type: custom:multiple-entity-row
+        name: Kind
+        show_state: false
+        card_mod:
+          style: |
+            :host {
+            --paper-item-icon-color: 
+            {% if is_state('sensor.kind_climate', 'good') %}
+              green;
+            {% elif is_state('sensor.kind_climate', 'medium') %}
+              orange;
+            {% else %}
+              red;
+            {% endif %}
+            }
+        entities:
+          - entity: sensor.tempi_kind_humidity
+            name: false
+          - entity: sensor.tempi_kind_temperature
+            name: false
+      - entity: sensor.studio_climate
+        type: custom:multiple-entity-row
+        name: Studio
+        show_state: false
+        card_mod:
+          style: |
+            :host {
+            --paper-item-icon-color: 
+            {% if is_state('sensor.studio_climate', 'good') %}
+              green;
+            {% elif is_state('sensor.studio_climate', 'medium') %}
+              orange;
+            {% else %}
+              red;
+            {% endif %}
+            }
+        entities:
+          - entity: sensor.tempi_studio_humidity
+            name: false
+          - entity: sensor.tempi_studio_temperature
+            name: false
+      - entity: sensor.waschraum_climate
+        type: custom:multiple-entity-row
+        name: Waschraum
+        show_state: false
+        card_mod:
+          style: |
+            :host {
+            --paper-item-icon-color: 
+            {% if is_state('sensor.waschraum_climate', 'good') %}
+              green;
+            {% elif is_state('sensor.waschraum_climate', 'medium') %}
+              orange;
+            {% else %}
+              red;
+            {% endif %}
+            }
+        entities:
+          - entity: sensor.tempi_waschraum_humidity
+            name: false
+          - entity: sensor.tempi_waschraum_temperature
+            name: false
