@@ -1,0 +1,10 @@
+{% set T = (states('sensor.tempi_gast_temperature') | float(0)) %}
+{% set H = (states('sensor.tempi_gast_humidity') | float(0)) %}
+
+{% if 18 <= T <= 23 and 35 <= H <= 60 %}
+good
+{% elif (T > 23 or T < 18) and (H < 35 or H > 60) %}
+bad
+{% else %}
+medium
+{% endif %}
