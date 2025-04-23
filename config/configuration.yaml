@@ -38,7 +38,8 @@ recorder:
       - sensor.pixel_8_pro_geocoded_location
       - sensor.pixel_4a_geocoded_location
       - update.rollo_buro_firmware_update
-#      - sensor.regenradar
+      - sensor.regenradar
+      - sensor.wetterstation_aktuell_rohdaten
     entity_globs:
       - sensor.helene_wischer_*
       - button.helene_wischer_*
@@ -54,7 +55,8 @@ recorder:
       - sensor.echo_*_next_timer
       - switch.echo_*_do_not_disturb_switch
       - binary_sensor.e1_outdoor_*
-#      - sensor.rrr*
+      - sensor.rrr*
+      - sensor.wetter_*
 
 # Telegram Bot config
 telegram_bot:
@@ -83,6 +85,47 @@ emulated_hue:
   listen_port: 80
   expose_by_default: false
   entities:
-    light.mijia_desk_lamp_1s:
-      name: "Schreibtischlampe"
+    light.licht_terrasse:
+      name: "Terrasse"
       hidden: false
+    switch.inspelning_treppe:
+      name: "Korblampe"
+      hidden: false
+
+# Wetterstation
+rest:
+  - resource: https://api.weather.com/v2/pws/observations/current?apiKey=e1f10a1e78da46f5b10a1e78da96f525&stationId=IHERZO115&numericPrecision=decimal&format=json&units=m
+    scan_interval: 600  # alle 10 Minuten
+    sensor:
+      - name: Wetterstation Aktuell Rohdaten
+        value_template: >
+          {{ value_json.observations[0].metric.temp }}
+        json_attributes:
+          - observations
+
+template:
+  - sensor:
+      - name: Wetter Temperatur
+        unit_of_measurement: "°C"
+        device_class: temperature
+        state_class: measurement
+        state: >
+          {{ state_attr('sensor.wetterstation_aktuell_rohdaten', 'observations')[0].metric.temp }}
+      - name: Wetter Niederschlagsrate
+        unit_of_measurement: "mm/h"
+        device_class: precipitation
+        state_class: measurement # oder total_increasing, je nach API-Verhalten
+        state: >
+          {{ state_attr('sensor.wetterstation_aktuell_rohdaten', 'observations')[0].metric.precipRate }}
+      - name: Wetter Niederschlag gesamt
+        unit_of_measurement: "mm"
+        device_class: precipitation
+        state_class: measurement # oder total_increasing, je nach API-Verhalten
+        state: >
+          {{ state_attr('sensor.wetterstation_aktuell_rohdaten', 'observations')[0].metric.precipTotal }}
+      - name: Wetter Luftfeuchtigkeit
+        unit_of_measurement: "%"
+        device_class: humidity
+        state_class: measurement
+        state: >
+          {{ state_attr('sensor.wetterstation_aktuell_rohdaten', 'observations')[0].humidity | round(0)}}
