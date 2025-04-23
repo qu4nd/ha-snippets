@@ -1,5 +1,5 @@
 - id: '1697401396406'
-  alias: Auto - Rollos Sunset
+  alias: Rollos Sunset
   description: ''
   triggers:
   - at: '18:00:00'
@@ -7,7 +7,7 @@
     enabled: false
   - trigger: sun
     event: sunset
-    offset: 00:15
+    offset: -00:15
   conditions: []
   actions:
   - continue_on_error: true
@@ -46,6 +46,14 @@
     device_id: 37a00e059c0e8cb65c0e644f4eb2821d
     domain: cover
     entity_id: 5a610b28f4f38cd2014dde3916f3dae5
+    type: close
+  - device_id: c3f01e43f8b12b449aea073407445098
+    domain: cover
+    entity_id: 0f9f686ade3fe684a0855644f5cd44bc
+    type: close
+  - device_id: 86a4ce5086d6400ce34ec78d2f30bb51
+    domain: cover
+    entity_id: 6bd28ac9e063ca1465c57dbbf157d9fc
     type: close
   mode: single
 - id: '1697918552685'
@@ -97,11 +105,11 @@
     enabled: false
   mode: single
 - id: '1698923757421'
-  alias: Auto - Lights on Sunset
+  alias: Lights on Sunset
   description: ''
   triggers:
   - event: sunset
-    offset: -00:15:00
+    offset: -00:30:00
     trigger: sun
   conditions: []
   actions:
@@ -117,8 +125,8 @@
     domain: switch
     enabled: true
   - type: turn_on
-    device_id: aff0d7d8195411bf2ed204da02d33867
-    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    device_id: 9101985592ef1ba13d8ecef1765f4f9c
+    entity_id: 8edd7dd879daa40e819a6ab2ad978192
     domain: switch
   - type: turn_on
     device_id: d285c29f4b1190f2155ea009c4cd5f02
@@ -133,7 +141,7 @@
     enabled: false
   mode: single
 - id: '1698924083587'
-  alias: Auto - Lights off at 23:00
+  alias: Lights off at 23:00
   description: ''
   triggers:
   - at: '23:00:00'
@@ -150,8 +158,8 @@
     entity_id: 2bff9da54db769cced8f0edba872a08a
     domain: switch
   - type: turn_off
-    device_id: aff0d7d8195411bf2ed204da02d33867
-    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    device_id: 9101985592ef1ba13d8ecef1765f4f9c
+    entity_id: 8edd7dd879daa40e819a6ab2ad978192
     domain: switch
   - continue_on_error: true
     action: switch.turn_off
@@ -160,9 +168,13 @@
     target:
       entity_id: switch.weihnachtsbeleuchtung
     enabled: false
+  - type: turn_off
+    device_id: aff0d7d8195411bf2ed204da02d33867
+    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    domain: switch
   mode: single
 - id: '1698924232659'
-  alias: 'Auto - Lights off at 0:00 l sunrise '
+  alias: 'Lights off at 0:00 l sunrise '
   description: ''
   triggers:
   - at: 00:00:00
@@ -187,8 +199,8 @@
     entity_id: b893193bdb0769c1ce162eac0b438355
     domain: switch
   - type: turn_off
-    device_id: aff0d7d8195411bf2ed204da02d33867
-    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    device_id: 9101985592ef1ba13d8ecef1765f4f9c
+    entity_id: 8edd7dd879daa40e819a6ab2ad978192
     domain: switch
   - continue_on_error: true
     action: switch.turn_off
@@ -199,7 +211,7 @@
     enabled: false
   mode: single
 - id: '1698924307736'
-  alias: Auto - Morning lights at 6:00
+  alias: Morning lights at 6:00
   description: ''
   triggers:
   - at: 06:00:00
@@ -212,8 +224,8 @@
     entity_id: d671d73df0453a31d3c339faba900d5f
     domain: switch
   - type: turn_on
-    device_id: aff0d7d8195411bf2ed204da02d33867
-    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
+    device_id: 9101985592ef1ba13d8ecef1765f4f9c
+    entity_id: 8edd7dd879daa40e819a6ab2ad978192
     domain: switch
   - continue_on_error: true
     action: switch.turn_on
@@ -272,7 +284,7 @@
     enabled: false
   mode: single
 - id: '1708089310926'
-  alias: Auto - Rollos Open All
+  alias: Rollos Open All
   description: ''
   triggers:
   - at: 08:00:00
@@ -328,7 +340,7 @@
     type: open
   mode: single
 - id: '1710280181676'
-  alias: 'Auto - Rollos Sonnenschutz '
+  alias: 'Rollos Sonnenschutz '
   description: ''
   triggers:
   - event: sunrise
@@ -348,6 +360,10 @@
     entity_id: c82fcd2ee3938ee667d91d4edbd95c04
     type: set_position
     position: 20
+  - device_id: c3f01e43f8b12b449aea073407445098
+    domain: cover
+    entity_id: 0f9f686ade3fe684a0855644f5cd44bc
+    type: close
   mode: single
 - id: '1711124432960'
   alias: Fenster geöffnet
@@ -390,15 +406,14 @@
       seconds: 2
     trigger: device
   - type: opened
-    device_id: 8c1bc15ea884c38c220cd589dd787682
-    entity_id: 48473df1b1fa8f71d33b0de1463bb1f3
+    device_id: 255cbad94cfb1f72d16e4636e116cec8
+    entity_id: 7eb86554abccc8d5cd752f03bf2645a8
     domain: binary_sensor
-    enabled: true
+    trigger: device
     for:
       hours: 0
       minutes: 0
       seconds: 2
-    trigger: device
   conditions:
   - condition: state
     entity_id: input_boolean.alarm_active
@@ -491,54 +506,21 @@
     enabled: true
   mode: single
 - id: '1713180547064'
-  alias: Action - All Lights off
+  alias: All Lights off
   description: ''
   triggers: []
   conditions: []
   actions:
-  - continue_on_error: true
-    type: turn_off
-    device_id: 0ec6f80f65b91bb3f22722f004edc49d
-    entity_id: d671d73df0453a31d3c339faba900d5f
-    domain: switch
-  - continue_on_error: true
-    type: turn_off
-    device_id: 4ea29f7266e1aa5e7c9aebb2ba741a48
-    entity_id: 2bff9da54db769cced8f0edba872a08a
-    domain: switch
-  - continue_on_error: true
-    type: turn_off
-    device_id: f35ca07c562fdda04c8d440027239399
-    entity_id: a22a29367ffd41ed3f054eca89b8e471
-    domain: switch
-  - continue_on_error: true
+  - action: light.turn_off
     metadata: {}
     data: {}
     target:
-      entity_id:
-      - light.hue_beleuchtung_terrasse
-    action: light.turn_off
-  - continue_on_error: true
+      label_id: light
+  - action: switch.turn_off
     metadata: {}
     data: {}
     target:
-      entity_id: light.schlafzimmer
-    action: light.turn_off
-  - type: turn_off
-    device_id: d285c29f4b1190f2155ea009c4cd5f02
-    entity_id: b893193bdb0769c1ce162eac0b438355
-    domain: switch
-  - type: turn_off
-    device_id: aff0d7d8195411bf2ed204da02d33867
-    entity_id: 20d0eb54707ee1c2a67b3e768df503c5
-    domain: switch
-  - continue_on_error: true
-    action: switch.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: switch.weihnachtsbeleuchtung
-    enabled: false
+      label_id: light
   mode: single
 - id: '1713379605143'
   alias: 'Reconnect Schreibtisch '
@@ -601,57 +583,25 @@
       - c46011270aa1b034eea36b2ed2fd5038
   mode: single
 - id: '1715084131217'
-  alias: Auto - Schlafenszeit Emilia
+  alias: Schlafenszeit Emilia
   description: ''
   triggers:
-  - at: '19:30:00'
+  - at: '20:00:00'
     trigger: time
   conditions: []
   actions:
-  - device_id: 6826e62a278dc4582fb788291ec3f06a
+  - device_id: c3f01e43f8b12b449aea073407445098
     domain: cover
-    entity_id: c82fcd2ee3938ee667d91d4edbd95c04
+    entity_id: 0f9f686ade3fe684a0855644f5cd44bc
     type: close
-    enabled: true
+  - device_id: 86a4ce5086d6400ce34ec78d2f30bb51
+    domain: cover
+    entity_id: 6bd28ac9e063ca1465c57dbbf157d9fc
+    type: close
   - type: turn_on
     device_id: d285c29f4b1190f2155ea009c4cd5f02
     entity_id: b893193bdb0769c1ce162eac0b438355
     domain: switch
-  - device_id: 649d468e978bc49c85ab10cdb24f72c8
-    domain: cover
-    entity_id: f2fb6e6b01528a9f3286dba19a84abb5
-    type: close
-    enabled: false
-  - device_id: 9c0a4942bcdbb224b047db05170d2fc5
-    domain: cover
-    entity_id: 3a627e9d2e0c16f3643979f542e4aefd
-    type: set_position
-    position: 33
-    enabled: false
-  mode: single
-- id: '1715204022289'
-  alias: New automation
-  description: ''
-  triggers:
-  - entity_id:
-    - switch.korblampe
-    to: unavailable
-    for:
-      hours: 0
-      minutes: 5
-      seconds: 0
-    trigger: state
-  conditions: []
-  actions:
-  - data:
-      device_id: aff0d7d8195411bf2ed204da02d33867
-    action: unifi.reconnect_client
-  - data:
-      message: Tapo Korblampe war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
-        durchgeführt.
-      title: 'Tapo Korblampe offline '
-    action: notify.notify
-    enabled: true
   mode: single
 - id: '1718200819816'
   alias: 'Cloudflare state notification '
@@ -912,11 +862,23 @@
     entity_id:
     - sensor.rrrainin120min
     above: 0
+  - trigger: numeric_state
+    entity_id:
+    - sensor.rrrainin60min
+    above: 0
+  - trigger: numeric_state
+    entity_id:
+    - sensor.rrrainin30min
+    above: 0
   conditions:
-  - condition: or
+  - alias: Ein Dachfenster ist offen
+    condition: or
     conditions:
     - condition: state
-      entity_id: binary_sensor.fenster_waschraum_contact
+      entity_id: binary_sensor.fenster_waschraum
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.dachfenster
       state: 'on'
   actions:
   - action: notify.mobile_app_pixel_8_pro
@@ -931,7 +893,7 @@
   triggers:
   - trigger: state
     entity_id:
-    - binary_sensor.fenster_bad_contact
+    - binary_sensor.fenster_bad
     to: 'on'
     for:
       hours: 0
@@ -939,17 +901,6 @@
       seconds: 0
   conditions: []
   actions:
-  - action: notify.alexa_media_echo_show_kuche
-    metadata: {}
-    data:
-      message: '{{ trigger.to_state.attributes.friendly_name }} ist seit 15 Minuten
-        geöffnet! Bitte schließen!'
-    enabled: false
-  - action: notify.alexa_media_alarmanlage
-    metadata: {}
-    data:
-      message: Fenster Badezimmer ist seit 15 Minuten geöffnet! Bitte schließen!
-    enabled: false
   - action: notify.all_telegram
     metadata: {}
     data:
@@ -967,7 +918,8 @@
       - device_id: ea5c5e07b2bd2b5a92c25015cddf71bd
         domain: cover
         entity_id: 7c291a12dd0c5be7b582f4c9c96a2edf
-        type: open
+        type: set_position
+        position: 100
       button_close_short_press:
       - device_id: ea5c5e07b2bd2b5a92c25015cddf71bd
         domain: cover
@@ -985,10 +937,14 @@
   - trigger: time
     at: '22:00:00'
   conditions:
-  - condition: or
+  - alias: Ein Dachfenster ist offen
+    condition: or
     conditions:
     - condition: state
-      entity_id: binary_sensor.fenster_waschraum_contact
+      entity_id: binary_sensor.fenster_waschraum
+      state: 'on'
+    - condition: state
+      entity_id: binary_sensor.dachfenster
       state: 'on'
   actions:
   - alias: HA Notification
@@ -999,4 +955,73 @@
       title: Fenster ist geöffnet
     enabled: true
     action: notify.notify
+  mode: single
+- id: '1744287982679'
+  alias: Hue Dimmer Switch
+  description: ''
+  use_blueprint:
+    path: patpac9/Hue_Dimmer_Switch_Easy_Custom_Buttons.yaml
+    input:
+      controller: Hue Dimmer Switch
+      on_released: []
+      off_released: []
+      up_released: []
+      down_released: []
+      up_pressed:
+      - device_id: 9993bfbc7b6f76e07d8fb79288c66c23
+        domain: light
+        entity_id: 1336e2321ba0501187ababb1b29bc523
+        type: brightness_increase
+      down_pressed:
+      - device_id: 9993bfbc7b6f76e07d8fb79288c66c23
+        domain: light
+        entity_id: 1336e2321ba0501187ababb1b29bc523
+        type: brightness_decrease
+      on_press:
+      - action: light.toggle
+        metadata: {}
+        data: {}
+        target:
+          device_id: 9993bfbc7b6f76e07d8fb79288c66c23
+      off_hold_released: []
+- id: '1745162936045'
+  alias: Regenwarnung 2
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 9eee9a2c388cc8a66b565780b67c6a70
+    entity_id: 9d557c78f9ec0fcec5b9477826d0e37e
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  - type: opened
+    device_id: 6d7f031faff51d0109b59adf5cec73c2
+    entity_id: a039a2f2c4245334538406bbab5f1a57
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  conditions:
+  - condition: or
+    conditions:
+    - condition: numeric_state
+      entity_id: sensor.rrrainin120min
+      above: 0
+    - condition: numeric_state
+      entity_id: sensor.rrrainin60min
+      above: 0
+    - condition: numeric_state
+      entity_id: sensor.rrrainin30min
+      above: 0
+  actions:
+  - action: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      message: '{{ states("sensor.rrraintext") }}'
+      title: Fenster im Dachgeschoss schließen
   mode: single
