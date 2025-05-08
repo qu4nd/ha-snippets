@@ -80,7 +80,7 @@ notify:
 
 # Hue Emulation for Alexa Access
 emulated_hue:
-  type: alexa
+  #type: alexa
   host_ip: 192.168.178.24
   listen_port: 80
   expose_by_default: false
@@ -112,7 +112,7 @@ template:
         state: >
           {{ state_attr('sensor.wetterstation_aktuell_rohdaten', 'observations')[0].metric.temp }}
       - name: Wetter Niederschlagsrate
-        unit_of_measurement: "mm/h"
+        unit_of_measurement: "mm"
         device_class: precipitation
         state_class: measurement # oder total_increasing, je nach API-Verhalten
         state: >
