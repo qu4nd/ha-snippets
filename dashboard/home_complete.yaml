@@ -12,7 +12,7 @@ views:
         cards:
           - type: heading
             heading: HOME
-            heading_style: title
+            heading_style: subtitle
             icon: ''
             badges: []
           - type: markdown
@@ -502,7 +502,7 @@ views:
                 card_mod:
                   style: |
                     :host {
-                    --paper-item-icon-color: 
+                    --state-icon-color: 
                     {% if is_state('sensor.buro_climate', 'good') %}
                       green;
                     {% elif is_state('sensor.buro_climate', 'medium') %}
@@ -523,7 +523,7 @@ views:
                 card_mod:
                   style: |
                     :host {
-                    --paper-item-icon-color: 
+                    --state-icon-color: 
                     {% if is_state('sensor.schlafzimmer_climate', 'good') %}
                       green;
                     {% elif is_state('sensor.schlafzimmer_climate', 'medium') %}
@@ -544,7 +544,7 @@ views:
                 card_mod:
                   style: |
                     :host {
-                    --paper-item-icon-color: 
+                    --state-icon-color: 
                     {% if is_state('sensor.gast_climate', 'good') %}
                       green;
                     {% elif is_state('sensor.gast_climate', 'medium') %}
@@ -565,7 +565,7 @@ views:
                 card_mod:
                   style: |
                     :host {
-                    --paper-item-icon-color: 
+                    --state-icon-color: 
                     {% if is_state('sensor.studio_climate', 'good') %}
                       green;
                     {% elif is_state('sensor.studio_climate', 'medium') %}
@@ -586,7 +586,7 @@ views:
                 card_mod:
                   style: |
                     :host {
-                    --paper-item-icon-color: 
+                    --state-icon-color: 
                     {% if is_state('sensor.waschraum_climate', 'good') %}
                       green;
                     {% elif is_state('sensor.waschraum_climate', 'medium') %}
@@ -618,10 +618,10 @@ views:
                   style: >
                     :host {
 
-                    --paper-item-icon-color: 
+                    --state-icon-color: 
 
-                    {% if states('sensor.wetter_niederschlagsrate') | int  > 0
-                    %}
+                    {% if states('sensor.wetter_niederschlagsrate') | float(0) 
+                    > 0 %}
                       blue;
                     {% else %}
                       grey;
@@ -719,8 +719,10 @@ views:
             state_content:
               - state
               - last-changed
-            entity: binary_sensor.fenster_schlafzimmer_window
+            entity: binary_sensor.fenster_schlafzimmer
             name: Schlafzimmer
+            features_position: bottom
+            vertical: false
           - type: tile
             icon: ''
             color: primary
@@ -764,19 +766,22 @@ views:
               columns: full
               rows: 1
           - image: default
-            image_size: '4'
+            image_size: '5'
             show_animation: true
             show_status: true
             show_toolbar: true
             type: custom:landroid-card
             entity: lawn_mower.m
-            show_name: false
+            show_name: true
             image_left: false
             compact_view: false
             visibility:
               - condition: state
                 entity: lawn_mower.m
                 state_not: unavailable
+            settings:
+              - switch.m_party_mode
+              - switch.m_locked
         column_span: 1
       - type: grid
         cards:
@@ -1070,43 +1075,43 @@ views:
             entity: sensor.rollo_kuche_device_temperature
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             needle: false
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
           - type: gauge
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             entity: sensor.rollo_wohnzimmer_links_device_temperature
             name: WZ links
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
           - type: gauge
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             entity: sensor.rollo_wohnzimmer_rechts_device_temperature
             name: WZ rechts
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
           - type: gauge
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             name: Bad
             max: 80
             needle: false
@@ -1114,67 +1119,67 @@ views:
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
           - type: gauge
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             entity: sensor.rollo_buro_device_temperature
             name: Büro
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
           - type: gauge
             entity: sensor.rollo_ankleide_device_temperature
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             name: Ankleide
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
           - type: gauge
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             entity: sensor.rollo_schlafzimmer_device_temperature
             name: SZ
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
           - type: gauge
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             entity: sensor.rollo_gast_device_temperature
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
             name: Gast
+            min: 40
           - type: gauge
             severity:
               green: 0
-              yellow: 50
-              red: 65
+              yellow: 59
+              red: 70
             entity: sensor.rollo_studio_device_temperature
             name: Studio
             max: 80
             grid_options:
               columns: 4
               rows: 2
-            min: 30
+            min: 40
         column_span: 1
       - type: grid
         cards:
@@ -1297,7 +1302,7 @@ views:
             visibility:
               - condition: numeric_state
                 entity: sensor.lowest_battery_value
-                above: 20
+                above: 19
         column_span: 1
       - type: grid
         cards:
