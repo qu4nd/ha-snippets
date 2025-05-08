@@ -73,12 +73,12 @@
   - data:
       device_id: 4ea29f7266e1aa5e7c9aebb2ba741a48
     action: unifi.reconnect_client
-  - data:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Beet hinten offline
       message: Beet hinten war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
         durchgeführt.
-      title: 'Beet hinten offline '
-    action: notify.notify
-    enabled: false
   mode: single
 - id: '1698174374159'
   alias: 'Reconnect Steckdosensäule '
@@ -97,12 +97,12 @@
   - data:
       device_id: bfc8ba1632a5120db32d538725831357
     action: unifi.reconnect_client
-  - data:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Steckdosensäule Terrasse offline
       message: Steckdosensäule Terrasse war 5 Minuten nicht verfügbar. Reconnect in
         UniFi wird durchgeführt.
-      title: 'Steckdosensäule Terrasse offline '
-    action: notify.notify
-    enabled: false
   mode: single
 - id: '1698923757421'
   alias: Lights on Sunset
@@ -249,15 +249,15 @@
     trigger: state
   conditions: []
   actions:
-  - data:
-      message: Tapo Emilia war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
-        durchgeführt.
-      title: 'Tapo Emilia offline '
-    action: notify.notify
-    enabled: true
   - action: unifi.reconnect_client
     data:
       device_id: d285c29f4b1190f2155ea009c4cd5f02
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Bett Emilia offline
+      message: Bett Emilia war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
+        durchgeführt.
   mode: single
 - id: '1705002692787'
   alias: Reconnect Mi Desk Lamp
@@ -276,12 +276,12 @@
   - data:
       device_id: 53b9e6d92ac7b4feb78caf639b9bf567
     action: unifi.reconnect_client
-  - data:
-      message: Mi Desk Lamp war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
-        durchgeführt.
-      title: 'Mi Desk Lamp offline '
-    action: notify.notify
-    enabled: false
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Schreibtischlampe offline
+      message: Schreibtischlampe hinten war 5 Minuten nicht verfügbar. Reconnect in
+        UniFi wird durchgeführt.
   mode: single
 - id: '1708089310926'
   alias: Rollos Open All
@@ -455,7 +455,7 @@
     data:
       message: '{{ trigger.to_state.attributes.friendly_name }} wurde geöffnet!'
       title: "\U0001F6A8\U0001F6A8\U0001F6A8 Fenster Alarm \U0001F6A8\U0001F6A8\U0001F6A8"
-    enabled: true
+    enabled: false
     action: notify.notify
   - continue_on_error: true
     metadata: {}
@@ -539,12 +539,12 @@
   - data:
       device_id: c6b2abfee2bc326789be63cd04572f48
     action: unifi.reconnect_client
-  - data:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Schreibtisch offline
       message: Schreibtisch war 5 Minuten nicht verfügbar. Reconnect in UniFi wird
         durchgeführt.
-      title: 'Schreibtisch offline '
-    action: notify.notify
-    enabled: false
   mode: single
 - id: '1713503968569'
   alias: Set Alexa volume 1
@@ -644,25 +644,11 @@
     from: 'on'
   conditions: []
   actions:
-  - metadata: {}
-    data:
-      title: Steckdose 1 turned off
-      message: Steckdose 1 (Landroid M) turned off.
-    action: notify.notify
-  - action: notify.philips_android_tv
+  - action: notify.ha_telegram_bot_daniel
     metadata: {}
     data:
       message: Steckdose 1 (Landroid M) turned off.
-      title: Steckdose 1 turned off
-      data:
-        icon:
-          path: /config/www/ha-logo.png
-        fontsize: large
-        position: bottom-right
-        duration: 5
-        transparency: 25%
-        color: black
-    enabled: false
+      title: ‼️ Steckdose 1 turned off ‼️
   mode: single
 - id: '1726086022021'
   alias: Müllabfuhr Benachrichtigung
@@ -700,6 +686,11 @@
   - data:
       device_id: 37a00e059c0e8cb65c0e644f4eb2821d
     action: unifi.reconnect_client
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Rollo Büro offline
+      message: Rollo Büro war 5 Minuten nicht verfügbar. Reconnect in UniFi wird durchgeführt.
   mode: single
 - id: '1734442248183'
   alias: New automation
@@ -718,12 +709,12 @@
   - data:
       device_id: 9a03376b0db63bdebca09038d63c1535
     action: unifi.reconnect_client
-  - data:
+  - action: persistent_notification.create
+    metadata: {}
+    data:
+      title: Somfy Connectivity Kit offline
       message: Somfy Connectivity Kit war 5 Minuten nicht verfügbar. Reconnect in
         UniFi wird durchgeführt.
-      title: 'Somfy Connectivity Kit offline '
-    action: notify.notify
-    enabled: true
   mode: single
 - id: '1734979635615'
   alias: 'Waschmaschine fertig '
@@ -752,7 +743,7 @@
     above: 30
   conditions: []
   actions:
-  - action: notify.mobile_app_pixel_8_pro
+  - action: notify.ha_telegram_bot_daniel
     metadata: {}
     data:
       title: "\U0001F321️ \U0001F321️ Serverschrank Temperatur \U0001F321️\U0001F321️"
@@ -804,55 +795,19 @@
     entity_id:
     - sensor.helene_wischer_sensor_time_left
     below: 1
-  conditions:
-  - condition: state
-    entity_id: input_boolean.helene_wischer_known_maitenance
-    state: 'off'
+  conditions: []
   actions:
-  - action: input_boolean.turn_on
-    metadata: {}
-    data: {}
-    target:
-      entity_id: input_boolean.helene_wischer_known_maitenance
-    enabled: false
-  - action: notify.mobile_app_pixel_8_pro
-    metadata: {}
-    data:
-      title: "\U0001F527 Helene Wischer Maintenance"
-      message: '{{ state_attr(trigger.entity_id, ''friendly_name'') }} below required
-        value'
-    enabled: false
-  - action: notify.mobile_app_pixel_8_pro
-    metadata: {}
-    data:
-      title: "\U0001F527 Helene Wischer Maintenance"
-      message: TESTNACHRICHT
-      data:
-        actions:
-        - action: RESET_MAINTENANCE
-          title: Reset Maintenance
-          icon: mdi:check-underline-circle
-    enabled: false
-  - wait_for_trigger:
-    - trigger: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: RESET_MAINTENANCE
-    timeout:
-      hours: 0
-      minutes: 10
-      seconds: 0
-      milliseconds: 0
-    enabled: false
-  - action: input_boolean.turn_off
-    metadata: {}
-    data: {}
-    target:
-      entity_id: input_boolean.helene_wischer_known_maitenance
-    enabled: false
   - action: script.confirmable_helene_wischer_maintenance
     metadata: {}
     data: {}
+    enabled: false
+  - action: notify.persistent_notification
+    metadata: {}
+    data:
+      message: '{{ state_attr(trigger.entity_id, ''friendly_name'') }} below required
+        value'
+      title: "\U0001F527 Helene Wischer Maintenance"
+      data: {}
   mode: single
 - id: '1742560133696'
   alias: Regenwarnung
@@ -881,6 +836,11 @@
       entity_id: binary_sensor.dachfenster
       state: 'on'
   actions:
+  - action: notify.all_telegram
+    metadata: {}
+    data:
+      title: "\U0001F327️ Regenwarnung! Fenster im Dachgeschoss schließen!"
+      message: '{{ states("sensor.rrraintext") }}'
   - action: notify.mobile_app_pixel_8_pro
     metadata: {}
     data:
@@ -897,15 +857,15 @@
     to: 'on'
     for:
       hours: 0
-      minutes: 15
+      minutes: 30
       seconds: 0
   conditions: []
   actions:
   - action: notify.all_telegram
     metadata: {}
     data:
-      title: 'Fenster Badezimmer '
-      message: ist seit 15 Minuten geöffnet. Bitte schließen!
+      title: "\U0001F6C1 Fenster Badezimmer "
+      message: ist seit 30 Minuten geöffnet. Bitte schließen!
   mode: single
 - id: '1743664433379'
   alias: IKEA Tradfri Open Close Button
@@ -947,14 +907,11 @@
       entity_id: binary_sensor.dachfenster
       state: 'on'
   actions:
-  - alias: HA Notification
-    continue_on_error: true
+  - action: notify.ha_telegram_bot_daniel
     metadata: {}
     data:
-      message: Das Dachfenster ist noch geöffnet!
-      title: Fenster ist geöffnet
-    enabled: true
-    action: notify.notify
+      message: Ein Dachfenster ist noch geöffnet!
+      title: "\U0001F3E0 Dachfenster offen"
   mode: single
 - id: '1744287982679'
   alias: Hue Dimmer Switch
@@ -984,6 +941,11 @@
         target:
           device_id: 9993bfbc7b6f76e07d8fb79288c66c23
       off_hold_released: []
+      off_pressed:
+      - type: toggle
+        device_id: f35ca07c562fdda04c8d440027239399
+        entity_id: a22a29367ffd41ed3f054eca89b8e471
+        domain: switch
 - id: '1745162936045'
   alias: Regenwarnung 2
   description: ''
@@ -1019,9 +981,116 @@
       entity_id: sensor.rrrainin30min
       above: 0
   actions:
+  - action: notify.all_telegram
+    metadata: {}
+    data:
+      title: "\U0001F327️ Regenwarnung! Fenster im Dachgeschoss schließen!"
+      message: '{{ states("sensor.rrraintext") }}'
   - action: notify.mobile_app_pixel_8_pro
     metadata: {}
     data:
       message: '{{ states("sensor.rrraintext") }}'
       title: Fenster im Dachgeschoss schließen
+  mode: single
+- id: '1745562886794'
+  alias: Alarm Fenster geöffnet - TEST
+  description: ''
+  triggers:
+  - type: opened
+    device_id: d64981b45aa75652e2c224d05488a3aa
+    entity_id: 9d8930de198f3ea5b88764abcad84b60
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: f8393df7d23d0698ec5de885a0937c73
+    entity_id: 847e16b9041ce970ce7091eaac375457
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: 75b5c58715a40c28e6f5235647c4c15d
+    entity_id: 0dd7a7305b357516b54e922cc9261483
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: 2c10f63bc52054fe58382e83baa1e4e0
+    entity_id: 29acd08ec0e6b4b218aa966f22942748
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    trigger: device
+  - type: opened
+    device_id: 255cbad94cfb1f72d16e4636e116cec8
+    entity_id: 7eb86554abccc8d5cd752f03bf2645a8
+    domain: binary_sensor
+    trigger: device
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  conditions:
+  - condition: state
+    entity_id: input_boolean.alarm_active
+    state: 'on'
+  actions:
+  - alias: HA Notification
+    continue_on_error: true
+    metadata: {}
+    data:
+      message: '{{ trigger.to_state.attributes.friendly_name }} wurde geöffnet!'
+      title: "\U0001F6A8\U0001F6A8\U0001F6A8 Fenster Alarm \U0001F6A8\U0001F6A8\U0001F6A8"
+    enabled: true
+    action: notify.notify
+  - alias: Set Bose Volume
+    continue_on_error: true
+    metadata: {}
+    data:
+      volume_level: 0.3
+    target:
+      entity_id: media_player.bose_soundbar_500
+    enabled: true
+    action: media_player.volume_set
+  - alias: 'Repeated Alarm '
+    continue_on_error: true
+    repeat:
+      sequence:
+      - continue_on_error: true
+        target:
+          entity_id: media_player.bose_soundbar_500
+        data:
+          media_content_id: media-source://media_source/local/mixkit-classic-alarm-995.wav
+          media_content_type: audio/x-wav
+        metadata:
+          title: mixkit-classic-alarm-995.wav
+          thumbnail:
+          media_class: music
+          children_media_class:
+          navigateIds:
+          - {}
+          - media_content_type: app
+            media_content_id: media-source://media_source
+        action: media_player.play_media
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 4
+          milliseconds: 500
+      until:
+      - condition: state
+        entity_id: input_boolean.alarm_active
+        state: 'off'
+    enabled: true
   mode: single
